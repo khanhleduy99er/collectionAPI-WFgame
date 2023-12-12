@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "5505a6c5-2931-47a0-8995-f333ab15ba5b",
+		"name": "MKP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "1. Login (Login User)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"thanh+box16@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth.staging.thetanarena.com/auth/v1/loginByEmail",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"auth",
+						"v1",
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Login (Admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"var getAdminToken = response.data.adminAccessToken\r",
+							"postman.setEnvironmentVariable(\"adminAccessToken\", getAdminToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://auth.staging.thetanarena.com/auth/v1/loginByEmail",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"auth",
+						"v1",
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Send-box",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjkwMTkwODY5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODk1ODYwNjksInJvbGUiOjIsInNpZCI6IjB4MDFhZjUzNzFiMmZkMmJmMjQxMzVmY2Q1MTQwMjAzZjNjMzZkZTA4YiIsInN1YiI6IkxESyIsInVzZXJfaWQiOiI2NDBlZDA5YjY0OTcwYzJmMDZkY2ZjZjEifQ.VHgTXhCJXEkHbYBLtt-q9hQbahc9uhNQCeSLux6Kpts",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjg2NzI2NDU0LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODYxMjE2NTQsInJvbGUiOjEsInNpZCI6IjB4ZWQwZmI4ZDJkMDBiNzhiMTk0ZTc4NGVjY2Q4ZmRjM2E2MTY0YWJlZSIsInN1YiI6IlRydW5nRGFpQ2EiLCJ1c2VyX2lkIjoiNjIzOWM2YzhkOGZhMWJhYWNmOGM2ZTc3In0.UwbBWuKVkdr0QhC_ANgfu9tjI0qFnlt5-AS4wZ-d6sY"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"userEmail\":\"thanh+box16@wolffungame.com\",\r\n    \"userAddress\": \"0x294f215c2a2372084f29b156e671ab886285d4ee\",\r\n    \"boxes\": [\r\n        {\r\n            \"boxType\":27,\r\n            \"amount\": 1020\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://data.staging.thetanarena.com/theta/v1/thetanbox/send",
+					"protocol": "https",
+					"host": [
+						"data",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"theta",
+						"v1",
+						"thetanbox",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open-Box",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjg4NDYyNzYzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODc4NTc5NjMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6ImUxcHZRVUFhQ1IyMCIsInVzZXJfaWQiOiI2NDlhYWIyYmRlMDFlN2ViYjhhNWZjNDQifQ.A3u4ReRFx3NaqXC64zXWwSEqrN6dd1Q6V_vSJjySMuU"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"boxType\": 7\r\n}"
+				},
+				"url": {
+					"raw": "https://data.staging.thetanarena.com/theta/v1/thetanbox/open-box",
+					"protocol": "https",
+					"host": [
+						"data",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"theta",
+						"v1",
+						"thetanbox",
+						"open-box"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "d5490d64-9775-4ac1-b54f-fe3bed7bfc2e",
+		"name": "User Reset Data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Login Guest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"accessTokenGuest\", response.data.accessToken);",
+							"",
+							"const requestBody = pm.request.body",
+							"const jsonData = JSON.parse(requestBody.raw)",
+							"const deviceId = jsonData.deviceId",
+							"",
+							"console.log(`deviceId is ${deviceId}`)",
+							"pm.test(`deviceId = ${deviceId}`, function(){})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function generateRandomString(length) {",
+							"  let result = '';",
+							"  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';",
+							"  const charactersLength = characters.length;",
+							"  for (let i = 0; i < length; i++) {",
+							"    result += characters.charAt(Math.floor(Math.random() * charactersLength));",
+							"  }",
+							"  return result;",
+							"}",
+							"",
+							"const randomDeviceId = generateRandomString(10);",
+							"console.log(randomDeviceId);",
+							"pm.globals.set(\"randomDeviceId\", randomDeviceId);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true,
+					"accept": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\":\"{{randomDeviceId}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ThetaAuthUrl}}/loginAsGuest",
+					"host": [
+						"{{ThetaAuthUrl}}"
+					],
+					"path": [
+						"loginAsGuest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1. Login User Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"pm.collectionVariables.set(\"accessToken\", responseBody.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld+5@wolffungame.com\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/loginByEmail",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. GetProfile Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"userId\", responseJSON.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ThetanRivalsUrl}}/profile",
+					"host": [
+						"{{ThetanRivalsUrl}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Preview Gift",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = JSON.parse(responseBody);\r",
+							"const amountRbuck = (response.data.rewards[0].amount)/100000000;\r",
+							"const amountEnhancer = (response.data.rewards[1].amount)/100000000;\r",
+							"var battles = response.data.battles\r",
+							"\r",
+							"function getAountRbuckGift(battles) {\r",
+							"  if(battles <= 20) {\r",
+							"    return 50;\r",
+							"  } else if(battles > 20 && battles <= 50) {\r",
+							"    return 100; \r",
+							"  } else if(battles > 50 && battles <= 100) {\r",
+							"    return 200;\r",
+							"  } else if(battles > 100 && battles <= 500) {\r",
+							"    return 300;\r",
+							"  } else {\r",
+							"    return 500;\r",
+							"  }\r",
+							"}\r",
+							"\r",
+							"function getAountEnhancerGift(battles) {\r",
+							"  if(battles <= 20) {\r",
+							"    return 100;\r",
+							"  } else if(battles > 20 && battles <= 50) {\r",
+							"    return 200; \r",
+							"  } else if(battles > 50 && battles <= 100) {\r",
+							"    return 300;\r",
+							"  } else if(battles > 100 && battles <= 500) {\r",
+							"    return 500;\r",
+							"  } else {\r",
+							"    return 500;\r",
+							"  }\r",
+							"}\r",
+							"\r",
+							"const amountGiftRbuck = getAountRbuckGift(battles);\r",
+							"const amountGiftEnhancer = getAountEnhancerGift(battles);\r",
+							"\r",
+							"if (amountGiftRbuck == amountRbuck || amountGiftEnhancer == amountEnhancer){\r",
+							"        pm.test(\"Kiểm tra Rbuck tặng cho user : \" + \"---Rbuck \" + amountGiftEnhancer+ \"---Enhancer \" + amountEnhancer , function(){\r",
+							"            pm.expect(true).to.eql(true)\r",
+							"})\r",
+							"    } else {\r",
+							"        pm.test(\"Số lượng Rbuck và Enhancer tặng cho user chưa đúng. \", function(){\r",
+							"            pm.expect(true).to.eql(false)\r",
+							"})\r",
+							"    }\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.yasuo.N7UqAl0XXHUhmzM2SX1Td_cNzzSLUur9Wj2k0PJ1UQY"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/beta/reward",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"beta",
+						"reward"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Claim gift",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.yasuo.N7UqAl0XXHUhmzM2SX1Td_cNzzSLUur9Wj2k0PJ1UQY"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/beta/reward/claim",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"beta",
+						"reward",
+						"claim"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "battleCurrent",
+			"value": ""
+		},
+		{
+			"key": "accessTokenGuest",
+			"value": ""
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}

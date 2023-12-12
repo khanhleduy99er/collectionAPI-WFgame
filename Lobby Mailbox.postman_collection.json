@@ -1,0 +1,3769 @@
+{
+	"info": {
+		"_postman_id": "7f5e9ba8-dad0-4505-bb2a-dfc930e03050",
+		"name": "Lobby Mailbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Personal Mailbox",
+			"item": [
+				{
+					"name": "Get Mailbox",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Lấy nội dung phản hồi",
+									"var responseBody = pm.response.json();",
+									"var mails = responseBody.data.mails;",
+									"",
+									"// Đếm số lượng mailIds trong phản hồi",
+									"var mailIdCount = mails.length;",
+									"",
+									"// Lấy tất cả mailIds và lưu chúng vào một biến của bộ sưu tập",
+									"var mailIds = [];",
+									"mails.forEach(function(mail) {",
+									"    var mailId = mail.mailId;",
+									"    mailIds.push(mailId);",
+									"});",
+									"pm.collectionVariables.set(\"mailIds\", JSON.stringify(mailIds)); // Sửa lỗi ở đây: \"mailIdds\" -> \"mailIds\"",
+									"",
+									"// Ghi log số lượng và mailIds để kiểm tra",
+									"console.log(\"Số lượng mailIds: \" + mailIdCount);",
+									"console.log(\"MailIds: \" + mailIds);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/mailbox?type=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mailbox"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Admin) Get Mailbox",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": 1,\r\n    \"userId\": \"{{userReceiverId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/admin",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Admin) System sends item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item\": {\r\n        \"amount\": 30,\r\n        \"kind\": 1,\r\n        \"type\": 23\r\n    },\r\n    \"userId\": \"{{requestId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mailbox/admin/send",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Claim item form mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAcessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailId\": \"{{mailId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/claim",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"claim"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Mailbox Config",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/mailbox/config",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailId\": \"10f5ee9d\",\r\n    \"type\": 2\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/delete",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send mail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addInId\": \"1021\",\r\n    \"receiver\": \"{{userReceiverId}}\",\r\n    \"text\": \"{{@randomJobTitle}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mailbox/send",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark mail as read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailId\": \"34d94f4b\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/read",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cost Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseFeatureUrl}}/mailbox/item/cost?kind=1&type=653cf6f0d6a900c93eb49930",
+							"host": [
+								"{{baseFeatureUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"item",
+								"cost"
+							],
+							"query": [
+								{
+									"key": "kind",
+									"value": "1"
+								},
+								{
+									"key": "type",
+									"value": "653cf6f0d6a900c93eb49930"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Guild Mailbox",
+			"item": [
+				{
+					"name": "Get Guild Mailbox",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"\r",
+									"var mailNum = response.data.mails.length\r",
+									"\r",
+									"console.log(mailNum)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/lobby/guilds/{{guildId}}/mailbox",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guilds",
+								"{{guildId}}",
+								"mailbox"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Guild Mailbox (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guilds/{{guildId}}/mailbox",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guilds",
+								"{{guildId}}",
+								"mailbox"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"{{$randomEmail}}\",\r\n    \"to\": [\r\n        \"{{userInGuild2}}\",\r\n        \"{{userInGuild3}}\",\r\n        \"{{userInGuild4}}\",\r\n        \"{{userInGuild5}}\",\r\n        \"{{userInGuild6}}\"\r\n    ],\r\n    \"toAllMembers\": false\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyTownUrl}}/lobby/guilds/{{guildId}}/mailbox/send",
+							"host": [
+								"{{LobbyTownUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guilds",
+								"{{guildId}}",
+								"mailbox",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Created Guild",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"\r",
+									"pm.collectionVariables.set(\"guildId\", response.data.id)\r",
+									"pm.collectionVariables.set(\"townID\", response.data.townID)\r",
+									"pm.collectionVariables.set(\"guildName\", response.data.guildName)\r",
+									"pm.collectionVariables.set(\"guildMotto\", response.data.guildMotto)\r",
+									"pm.collectionVariables.set(\"requiredTrophy\", response.data.requiredTrophy)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"guildMotto\": \"string\",\r\n    \"guildName\": \"xinchaoban\",\r\n    \"guildType\": 1,\r\n    \"requiredTrophy\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guild",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Town",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"\r",
+									"pm.collectionVariables.set(\"townID\" , response.data.townID)\r",
+									"pm.collectionVariables.set(\"townName\" , response.data.townName)\r",
+									"pm.collectionVariables.set(\"townScore\" , response.data.townScore)\r",
+									"pm.collectionVariables.set(\"townCountryD\" , response.data.townCountry)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userAge\": 30\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thetan-rivals-multiplayer.staging.thetanarena.com/lobby/user-town",
+							"protocol": "https",
+							"host": [
+								"thetan-rivals-multiplayer",
+								"staging",
+								"thetanarena",
+								"com"
+							],
+							"path": [
+								"lobby",
+								"user-town"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Member vào Guild",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guild/invite/{{userReceiverId}}",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"invite",
+								"{{userReceiverId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Guild",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"pm.collectionVariables.set(\"guildName\", response.data.guildName)\r",
+									"pm.collectionVariables.set(\"guildId\", response.data[0].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guild/list?guildName=&guildType=1&limit=20",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"list"
+							],
+							"query": [
+								{
+									"key": "guildName",
+									"value": ""
+								},
+								{
+									"key": "guildType",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Kick Member/Leave Guild",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guild/member/{{userInGuild16}}",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"member",
+								"{{userInGuild16}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join Guild/Accept Invite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/guild/{{guildId}}/join",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"{{guildId}}",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Guild",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"\r",
+									"pm.collectionVariables.set(\"guildId\", response.data.id)\r",
+									"pm.collectionVariables.set(\"townID\", response.data.townID)\r",
+									"pm.collectionVariables.set(\"guildName\", response.data.guildName)\r",
+									"pm.collectionVariables.set(\"guildMotto\", response.data.guildMotto)\r",
+									"pm.collectionVariables.set(\"requiredTrophy\", response.data.requiredTrophy)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyTownUrl}}/lobby/guild/{{guildId}}",
+							"host": [
+								"{{LobbyTownUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"{{guildId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join town by Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MjIwNzk4LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU2MTU5OTgsInJvbGUiOjEsInNpZCI6IjB4ODVmNTFlZTJlZjY1MzVhNmE5YThiOGY5ZWRlYzk5YzAwMzczNjJmOCIsInN1YiI6ImRhdDEiLCJ1c2VyX2lkIjoiNjFhODllOWRmYmIxYThiMDhiYjFmYjhjIn0.WRrIxzpsYuc-KLxyTQbOmwfwvlZWn45cz2LiEEwKaXg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"townID\": \"{{townID}}\",\r\n    \"userAge\": 22,\r\n    \"userLanguage\": 39,\r\n    \"userID\": \"{{userId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/lobby/pick-town-admin",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"lobby",
+								"pick-town-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list Guild",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var response = pm.response.json()\r",
+									"\r",
+									"// pm.collectionVariables.set(\"guildId\" , response.data.id)\r",
+									"// pm.collectionVariables.set(\"townID\" , response.data.townID)\r",
+									"// pm.collectionVariables.set(\"guildName\" , response.data.guildName)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyTownUrl}}/lobby/guild/list?guildName={{guildName}}",
+							"host": [
+								"{{LobbyTownUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"list"
+							],
+							"query": [
+								{
+									"key": "guildName",
+									"value": "{{guildName}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get guild by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyTownUrl}}/lobby/guild/{{guildId}}",
+							"host": [
+								"{{LobbyTownUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"{{guildId}}"
+							],
+							"query": [
+								{
+									"key": "guildID",
+									"value": "{{guildId}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2OTk3MTg3LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTYzOTIzODcsInJvbGUiOjAsInNpZCI6IjB4NzI2MUFDQTIxNTc2Nzk3MjQwZDU2NDg5QjVDZGVGN0Q5Zjk4ODZCMCIsInN1YiI6IlRoZXRhbmlhbl81ODEwMzEwNzY2IiwidXNlcl9pZCI6IjY0Y2IxYjQwMzE2OTY4Mjk0NTMxZDY3MyJ9.dPdMm8_W-04E2T3dHdGZZVLA9PXDcKZlZdDGZjAVxNw"
+							}
+						],
+						"url": {
+							"raw": "https://thetan-rivals-service-preview-pr-1479.staging.thetanarena.com/api/v1/profile",
+							"protocol": "https",
+							"host": [
+								"thetan-rivals-service-preview-pr-1479",
+								"staging",
+								"thetanarena",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auto Join Guild",
+			"item": [
+				{
+					"name": "1. Request user login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get request body\r",
+									"const requestBody = pm.request.body\r",
+									"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+									"const getEmail = requestBodyJson.email\r",
+									"const status = pm.response.code\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var getAccessToken = jsonData.data.accessToken\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.collectionVariables.set(\"userRequestEmail\", getEmail)\r",
+									"pm.collectionVariables.set(\"requestAccessToken\", jsonData.data.accessToken)\r",
+									"\r",
+									"// get result of status \r",
+									"console.log(status)\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(status).to.be.oneOf([200, 201, 202])\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+wallet@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseAuthUrl}}/loginByEmail",
+							"host": [
+								"{{baseAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. Get Infor Request user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.collectionVariables.set(\"userRequestId\", responseJSON.data.id);\r",
+									"pm.collectionVariables.set(\"townID\" , responseJSON.data.townID)\r",
+									"pm.collectionVariables.set(\"guildId\" , responseJSON.data.guild.id)\r",
+									"pm.collectionVariables.set(\"gulidName\" , responseJSON.data.guild.guildName)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Request user join town",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MjIwNzk4LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU2MTU5OTgsInJvbGUiOjEsInNpZCI6IjB4ODVmNTFlZTJlZjY1MzVhNmE5YThiOGY5ZWRlYzk5YzAwMzczNjJmOCIsInN1YiI6ImRhdDEiLCJ1c2VyX2lkIjoiNjFhODllOWRmYmIxYThiMDhiYjFmYjhjIn0.WRrIxzpsYuc-KLxyTQbOmwfwvlZWn45cz2LiEEwKaXg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"townID\": \"{{townID}}\",\r\n    \"userAge\": 30,\r\n    \"userLanguage\": 39,\r\n    \"userID\": \"{{userRequestId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/lobby/pick/town/admin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"pick",
+								"town",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Create Guild for request user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"\r",
+									"pm.collectionVariables.set(\"guildId\", response.data.id)\r",
+									"pm.collectionVariables.set(\"townID\", response.data.townID)\r",
+									"pm.collectionVariables.set(\"guildName\", response.data.guildName)\r",
+									"pm.collectionVariables.set(\"guildMotto\", response.data.guildMotto)\r",
+									"pm.collectionVariables.set(\"requiredTrophy\", response.data.requiredTrophy)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"guildMotto\": \"string\",\r\n    \"guildName\": \"{{$randomFullName}}\",\r\n    \"guildType\": 1,\r\n    \"requiredTrophy\": 1\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/lobby/guild",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Member login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = pm.response.json()\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.collectionVariables.set(\"userReceiverEmail\", jsonData.data.email)\r",
+									"pm.collectionVariables.set(\"receiverAccessToken\", jsonData.data.accessToken)\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{userReceiverEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseAuthUrl}}/loginByEmail",
+							"host": [
+								"{{baseAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "6. Get infor of member",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"receiverId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Member join town",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MjIwNzk4LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU2MTU5OTgsInJvbGUiOjEsInNpZCI6IjB4ODVmNTFlZTJlZjY1MzVhNmE5YThiOGY5ZWRlYzk5YzAwMzczNjJmOCIsInN1YiI6ImRhdDEiLCJ1c2VyX2lkIjoiNjFhODllOWRmYmIxYThiMDhiYjFmYjhjIn0.WRrIxzpsYuc-KLxyTQbOmwfwvlZWn45cz2LiEEwKaXg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"townID\": \"{{townID}}\",\r\n    \"userAge\": 22,\r\n    \"userLanguage\": 39,\r\n    \"userID\": \"{{receiverId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/lobby/pick/town/admin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"pick",
+								"town",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Invite Member join guild",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/lobby/guild/invite/{{receiverId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"invite",
+								"{{receiverId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9. Member accept invite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/lobby/guild/{{guildId}}/join",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"{{guildId}}",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10. Get Guild of User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()",
+									"var members = response.data.members;",
+									"",
+									"pm.collectionVariables.set(\"guildId\", response.data.id)",
+									"pm.collectionVariables.set(\"townID\", response.data.townID)",
+									"pm.collectionVariables.set(\"guildName\", response.data.guildName)",
+									"pm.collectionVariables.set(\"guildMotto\", response.data.guildMotto)",
+									"pm.collectionVariables.set(\"requiredTrophy\", response.data.requiredTrophy)",
+									"",
+									"members.forEach(function(member, index) {",
+									"    var userId = member.userID;",
+									"    pm.collectionVariables.set(\"userInGuild\" + (index+1), userId);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/lobby/guild/{{guildId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guild",
+								"{{guildId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile user Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2OTk3MTg3LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTYzOTIzODcsInJvbGUiOjAsInNpZCI6IjB4NzI2MUFDQTIxNTc2Nzk3MjQwZDU2NDg5QjVDZGVGN0Q5Zjk4ODZCMCIsInN1YiI6IlRoZXRhbmlhbl81ODEwMzEwNzY2IiwidXNlcl9pZCI6IjY0Y2IxYjQwMzE2OTY4Mjk0NTMxZDY3MyJ9.dPdMm8_W-04E2T3dHdGZZVLA9PXDcKZlZdDGZjAVxNw"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Minion ingame",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MjIxMDA0LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU2MTYyMDQsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6ImFaTjdBbURDanpPSCIsInVzZXJfaWQiOiI2NDgxNDMxZjg4ZjMxNWU2MDA3MDRhZjkifQ.u2Spi1xq9AihY5HN6pp2QpNja9MH9VqA7eME3sybsUg"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/minion",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"minion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tăng Ranking của User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk1ODc1MTUyLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTUyNzAzNTIsInJvbGUiOjEsInNpZCI6IjB4ZWQwZmI4ZDJkMDBiNzhiMTk0ZTc4NGVjY2Q4ZmRjM2E2MTY0YWJlZSIsInN1YiI6IlRydW5nRGFpQ2EiLCJ1c2VyX2lkIjoiNjIzOWM2YzhkOGZhMWJhYWNmOGM2ZTc3In0.3FB8yr3xCsdC4cF5g3T7yY-nId0rU9rT3NYs0jjVQ_g"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{receiverId}}\",\r\n    \"trophy\": 300\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ranking-reward/admin/updatetrophy",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ranking-reward",
+								"admin",
+								"updatetrophy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ranking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MzIyMzI5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU3MTc1MjksInJvbGUiOjAsInNpZCI6IjB4NTFmNDlkM2Q2YzNhOTRjNDkxOGMyNTNkY2NhNWI4YjhiZDFhODgwNSIsInN1YiI6IjIzMTIxMzIxMzEyMzEyMzEyMyIsInVzZXJfaWQiOiI2MjNkNzM1YWQ4ZmExYmFhY2Y4YzZlYjUifQ.NsgAiWeXD42DJFaqm6PAeI7L6Vf-nUYUj-1D3WGqYo4"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/ranking-reward",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ranking-reward"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flow Auto Add Friends",
+			"item": [
+				{
+					"name": "Request user Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get request body\r",
+									"const requestBody = pm.request.body\r",
+									"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+									"const getEmail = requestBodyJson.email\r",
+									"const status = pm.response.code\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var getAccessToken = jsonData.data.accessToken\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.collectionVariables.set(\"userRequestEmail\", getEmail)\r",
+									"pm.collectionVariables.set(\"requestAccessToken\", jsonData.data.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+wallet@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get ID of request User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"requestId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Receiver User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get request body\r",
+									"const requestBody = pm.request.body\r",
+									"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+									"const getEmail = requestBodyJson.email\r",
+									"const status = pm.response.code\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var getAccessToken = jsonData.data.accessToken\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.collectionVariables.set(\"userReceiverEmail\", getEmail)\r",
+									"pm.collectionVariables.set(\"receiverAccessToken\", jsonData.data.accessToken)\r",
+									"\r",
+									"// get result of status \r",
+									"console.log(status)\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(status).to.be.oneOf([200, 201, 202])\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{userReceiverEmail}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get ID of Received ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"receiverId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. Request Friend",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"var status = response.success\r",
+									"\r",
+									"if (status == true){\r",
+									"    pm.test(\"Send invite friend successfully\", function(){\r",
+									"        pm.expect(true).to.eql(true)\r",
+									"    })\r",
+									"}else {\r",
+									"    pm.test(\"Invite unsuccessfully\", function(){\r",
+									"        pm.expect(false).to.eql(true)\r",
+									"    })\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"friendId\": \"{{receiverId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseDataUrl}}/friends",
+							"host": [
+								"{{baseDataUrl}}"
+							],
+							"path": [
+								"friends"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Decline/UnFriend",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"friendId\": \"{{userRequestId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseDataUrl}}/friends",
+							"host": [
+								"{{baseDataUrl}}"
+							],
+							"path": [
+								"friends"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Accept Friend",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"friendId\": \"{{requestId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseDataUrl}}/friends",
+							"host": [
+								"{{baseDataUrl}}"
+							],
+							"path": [
+								"friends"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get  List Friend",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Retrieve the saved \"userReceiverEmail\" value from the environment",
+									"var userReceiverEmail = pm.environment.get(\"userReceiverEmail\");",
+									"var checkFriend = false",
+									"var responseBody = pm.response.json();",
+									"var friendsInfos = responseBody.data.friendsInfos;",
+									"    ",
+									"friendsInfos.forEach(function(friendInfo) {",
+									"        var friendEmail = friendInfo.profile.email;",
+									"        if (userReceiverEmail == friendEmail){",
+									"             checkFriend = true",
+									"            ",
+									"        }",
+									"    });   ",
+									"",
+									"pm.test(\"Đã kết bạn\", function () {",
+									"    pm.expect(checkFriend).to.eql(true)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/friends",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"friends"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auto send mail (Personal)",
+			"item": [
+				{
+					"name": "Send mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addInId\": \"\",\r\n    \"receiver\": \"{{receiverId}\",\r\n    \"text\": \"{{$randomFullName}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/send",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flow check Mailbox and reading Maill (Personal)",
+			"item": [
+				{
+					"name": "1. User receive Mail Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get request body\r",
+									"const requestBody = pm.request.body\r",
+									"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+									"const getEmail = requestBodyJson.email\r",
+									"const status = pm.response.code\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var getAccessToken = jsonData.data.accessToken\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.collectionVariables.set(\"userReceiverEmail\", getEmail)\r",
+									"pm.collectionVariables.set(\"receiverAccessToken\", jsonData.data.accessToken)\r",
+									"\r",
+									"// get result of status \r",
+									"console.log(status)\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(status).to.be.oneOf([200, 201, 202])\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+5@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. Get ID User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"userRequestId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get list Mailbox of User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the response body",
+									"var responseBody = pm.response.json();",
+									"",
+									"",
+									"// Get a random mailId from the response",
+									"// var mails = responseBody.data.mails;",
+									"// var randomMail = mails[Math.floor(Math.random() * mails.length)];",
+									"// var mailId = \"f3734ba1\";",
+									"",
+									"// pm.globals.set(\"mailId\", mailId);",
+									"// console.log(mailId)",
+									"",
+									"// pm.test(\"Check if mail is read\", function () {",
+									"//     var mailId = pm.response.json().isRead;",
+									"//     if (mailId === false) {",
+									"//         pm.expect(mailId).to.be.false;",
+									"//         pm.test(\"Mail isn't read\");",
+									"//     } else if (mailId === true) {",
+									"//         pm.expect(mailId).to.be.true;",
+									"//         pm.test(\"Mail has been read\");",
+									"//     }",
+									"// });",
+									"",
+									"",
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>MailId</th>",
+									"        <th>isRead</th>",
+									"    </tr>",
+									"    ",
+									"    <tr>",
+									"        <td>{{response.data.mails.[0].mailId}}</td>",
+									"        <td>{{response.data.mails.[0].isRead}}</td>",
+									"    </tr>",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    var randomIndex = Math.floor(Math.random() * res.data.mails.length);",
+									"    var visualizerData = {",
+									"        data: {",
+									"            mails: [",
+									"                {",
+									"                    mailId: res.data.mails[randomIndex].mailId,",
+									"                    isRead: res.data.mails[randomIndex].isRead",
+									"                }",
+									"            ]",
+									"        }",
+									"    };",
+									"    pm.environment.set(\"mailId\", res.data.mails[randomIndex].mailId)",
+									"    pm.environment.set(\"isRead\", res.data.mails[randomIndex].isRead)",
+									"",
+									"    return { response: visualizerData };",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox?type=1",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Mark user reading Mail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailId\": \"{{mailId}}\"\r\n    // \"mailId\": \"ae3a4e70\"\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox/read",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Confirm Email has been read",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Get the response body",
+									"var responseBody = pm.response.json();",
+									"var emailIdHasBeenRead = pm.environment.get(\"mailId\")",
+									"var statusOfMailReaded = pm.environment.get(\"isRead\")",
+									"",
+									"",
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>Mail ID</th>",
+									"        <th>Is Read</th>",
+									"        <th>Created At</th>",
+									"        <th>Mail Code</th>",
+									"        <th>Guild Name</th>",
+									"        <th>Guild ID</th>",
+									"        <th>User ID</th>",
+									"        <th>Email</th>",
+									"        <th>Address</th>",
+									"        <th>Nickname</th>",
+									"        <th>Avatar</th>",
+									"        <th>Avatar Frame</th>",
+									"        <th>Name Color</th>",
+									"        <th>Change Name Tickets</th>",
+									"        <th>Biography</th>",
+									"        <th>Minion</th>",
+									"        <th>Battle</th>",
+									"        <th>Victory</th>",
+									"        <th>Streak</th>",
+									"        <th>Current Streak</th>",
+									"        <th>Win Round</th>",
+									"        <th>Trophy</th>",
+									"        <th>Rank</th>",
+									"        <th>Division</th>",
+									"        <th>Milestone</th>",
+									"        <th>Trophy Current Rank</th>",
+									"        <th>Trophy Highest</th>",
+									"        <th>Season Trophy Highest</th>",
+									"        <th>Ranking Level Highest</th>",
+									"        <th>Season ID</th>",
+									"        <th>Country</th>",
+									"        <th>Created At (User)</th>",
+									"        <th>Age Range</th>",
+									"        <th>Gender</th>",
+									"        <th>Text</th>",
+									"    </tr>",
+									"    ",
+									"    {{#each response.data.mails}}",
+									"        <tr id=row_{{@key}}>",
+									"            <td>{{mailId}}</td>",
+									"            <td>{{isRead}}</td>",
+									"            <td>{{createdAt}}</td>",
+									"            <td>{{mailCode}}</td>",
+									"            <td>{{metadata.guildName}}</td>",
+									"            <td>{{metadata.guildId}}</td>",
+									"            <td>{{metadata.userProfile.id}}</td>",
+									"            <td>{{metadata.userProfile.email}}</td>",
+									"            <td>{{metadata.userProfile.address}}</td>",
+									"            <td>{{metadata.userProfile.nickname}}</td>",
+									"            <td>{{metadata.userProfile.avatar}}</td>",
+									"            <td>{{metadata.userProfile.avatarFrame}}</td>",
+									"            <td>{{metadata.userProfile.nameColor}}</td>",
+									"            <td>{{metadata.userProfile.changeNameTickets}}</td>",
+									"            <td>{{metadata.userProfile.biography}}</td>",
+									"            <td>{{metadata.userProfile.stats.minion}}</td>",
+									"            <td>{{metadata.userProfile.stats.battle}}</td>",
+									"            <td>{{metadata.userProfile.stats.victory}}</td>",
+									"            <td>{{metadata.userProfile.stats.streak}}</td>",
+									"            <td>{{metadata.userProfile.stats.curStreak}}</td>",
+									"            <td>{{metadata.userProfile.stats.winRound}}</td>",
+									"            <td>{{metadata.userProfile.ranking.trophy}}</td>",
+									"            <td>{{metadata.userProfile.ranking.rank}}</td>",
+									"            <td>{{metadata.userProfile.ranking.division}}</td>",
+									"            <td>{{metadata.userProfile.ranking.milestone}}</td>",
+									"            <td>{{metadata.userProfile.ranking.trophyCurRank}}</td>",
+									"            <td>{{metadata.userProfile.ranking.trophyHighest}}</td>",
+									"            <td>{{metadata.userProfile.ranking.seasonTrophyHighest}}</td>",
+									"            <td>{{metadata.userProfile.ranking.rankingLevelHighest}}</td>",
+									"            <td>{{metadata.userProfile.ranking.seasonID}}</td>",
+									"            <td>{{metadata.userProfile.country}}</td>",
+									"            <td>{{metadata.userProfile.createdAt}}</td>",
+									"            <td>{{metadata.userProfile.ageRange}}</td>",
+									"            <td>{{metadata.userProfile.gender}}</td>",
+									"            <td>{{text}}</td>",
+									"        </tr>",
+									"    {{/each}}",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    var res = pm.response.json();",
+									"    ",
+									"    return {response: res};",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{receiverAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{LobbyUrl}}/mailbox?type=1",
+							"host": [
+								"{{LobbyUrl}}"
+							],
+							"path": [
+								"mailbox"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auto send mail (Guild)",
+			"item": [
+				{
+					"name": "Send Mail Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"{{$randomEmail}}\",\r\n    \"to\": [\r\n        \"{{userInGuild2}}\",\r\n        \"{{userInGuild3}}\",\r\n        \"{{userInGuild4}}\",\r\n        \"{{userInGuild5}}\",\r\n        \"{{userInGuild6}}\"\r\n    ],\r\n    \"toAllMembers\": false\r\n}"
+						},
+						"url": {
+							"raw": "{{LobbyTownUrl}}/lobby/guilds/{{guildId}}/mailbox/send",
+							"host": [
+								"{{LobbyTownUrl}}"
+							],
+							"path": [
+								"lobby",
+								"guilds",
+								"{{guildId}}",
+								"mailbox",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Player send Item",
+			"item": [
+				{
+					"name": "1. Get item to send",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"\r",
+									"const minNumber = 0;\r",
+									"const maxNumber = (response.data.addIns).length;\r",
+									"\r",
+									"randomItem = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;\r",
+									"\r",
+									"pm.collectionVariables.set(\"itemId\", response.data.addIns[randomItem].id)\r",
+									"pm.collectionVariables.set(\"addInType\", response.data.addIns[randomItem].addInType)\r",
+									"pm.collectionVariables.set(\"addInId\", response.data.addIns[randomItem].addInId)\r",
+									"\r",
+									"console.log(response.data.addIns[randomItem].id)\r",
+									"console.log(response.data.addIns[randomItem].addInType)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk5MTcxMDQ5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTg1NjYyNDksInJvbGUiOjAsInNpZCI6IiIsInN1YiI6ImFzYWZ3IiwidXNlcl9pZCI6IjY0YjRmYzI1ZGUwMWU3ZWJiOGE1ZmU1MiJ9.6YgHOYBbUT8JJktviHoqYyaCEhzGuQ0obu5rMFRK3DQ"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/addins",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Check rarity item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"var item = parseInt(pm.collectionVariables.get(\"addInId\"))\r",
+									"var data = response.data.inventories\r",
+									"var index = 0\r",
+									"var currentSSP , rarityType\r",
+									"\r",
+									"function timViTriCuaType(jsonArray, item) {\r",
+									"    for (let i = 0; i < jsonArray.length; i++) {\r",
+									"        try {\r",
+									"            const data = jsonArray[i];\r",
+									"            if (data.type == item) {\r",
+									"                index = i\r",
+									"                return index\r",
+									"            }\r",
+									"        } catch (error) {\r",
+									"            console.error(`Lỗi khi giải mã JSON: ${error}`);\r",
+									"        }\r",
+									"    }\r",
+									"    return null;\r",
+									"}\r",
+									"\r",
+									"function seasonPass(index) {\r",
+									"    currentSSP = data[index].extras.season\r",
+									"    rarityType = data[index].extras.rarity\r",
+									"    return currentSSP , rarityType\r",
+									"}\r",
+									"\r",
+									"timViTriCuaType(data, item);\r",
+									"seasonPass(index)\r",
+									"\r",
+									"pm.collectionVariables.set(\"currentSSP\", currentSSP)\r",
+									"pm.collectionVariables.set(\"rarityType\", rarityType)\r",
+									"\r",
+									"console.log(currentSSP)\r",
+									"console.log(rarityType)\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/inventory/configs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"inventory",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Check seasonpass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"\r",
+									"pm.collectionVariables.set(\"currentSSP\" , response.data.seasonId)\r",
+									"\r",
+									"console.log(\"currentSSP: \" + response.data.seasonId)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk5MjcxMTk2LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTg2NjYzOTYsInJvbGUiOjAsInNpZCI6IjB4OTI4NWJjMWQ3MmJhMTIzMzFhZDIxNWUzYjQ3MWZmODg5NmJmNTMzZCIsInN1YiI6ImRheWxha2hhbmciLCJ1c2VyX2lkIjoiNjIzZDc0ZjNkOGZhMWJhYWNmOGM2ZWI5In0.eH9d_LLf_qDWT-bbdF6jfdxXjYl--k7SE2ZlarORxE4"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/season-pass/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"season-pass",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get chargeGold",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"const rarityType = pm.collectionVariables.get(\"rarityType\");\r",
+									"const addInType = pm.collectionVariables.get(\"addInType\");\r",
+									"let currentSSP = pm.collectionVariables.get(\"currentSSP\");\r",
+									"const returnChargeGold = response.data.amount / Math.pow(10, 8);\r",
+									"\r",
+									"const goldValueUnit = 0.014;\r",
+									"\r",
+									"const rarityList = {\r",
+									"  \"glow\": { \"Normal\": 3.75375, \"Rare\": 7.5075, \"Mythical\": 11.26125 },\r",
+									"  \"voice\": { \"Normal\": 3.241875, \"Rare\": 6.48375, \"Mythical\": 9.725625 },\r",
+									"  \"dance\": { \"Normal\": 2.900625, \"Rare\": 5.80125, \"Mythical\": 8.701875 },\r",
+									"  \"footprint\": { \"Normal\": 0.956454039, \"Rare\": 1.912908078, \"Mythical\": 2.869362116 },\r",
+									"  \"vehicle\": { \"Normal\": 3.75375, \"Rare\": 7.5075, \"Mythical\": 11.26125 },\r",
+									"  \"backBling\": { \"Normal\": 1.354976555, \"Rare\": 2.70995311, \"Mythical\": 4.064929665 },\r",
+									"  \"flyCraft\": { \"Normal\": 2.4708396, \"Rare\": 4.9416792, \"Mythical\": 7.4125188 }\r",
+									"}\r",
+									"\r",
+									"function checkRarity(rarity) {\r",
+									"  switch (rarity) {\r",
+									"    case 1:\r",
+									"      return \"Normal\";\r",
+									"    case 2:\r",
+									"      return \"Rare\";\r",
+									"    case 3:\r",
+									"      return \"Mythical\";\r",
+									"    default:\r",
+									"      console.log(\"Loại hiếm lạ không hợp lệ\");\r",
+									"      return null;\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"function checkItemTypeAndRarity(addInType, rarity) {\r",
+									"  const item = rarityList[addInType];\r",
+									"  return item ? item[rarity] : undefined;\r",
+									"}\r",
+									"\r",
+									"currentSSP = currentSSP == 1 ? 0.5 : 0.3;\r",
+									"\r",
+									"function chargeGold(itemValueUnit, goldValueUnit, currentSSP) {\r",
+									"  const giftAttachPrice = Math.round((itemValueUnit / goldValueUnit) * currentSSP / 10) * 10;\r",
+									"  return giftAttachPrice;\r",
+									"}\r",
+									"\r",
+									"function compareChargeGold(giftAttachPrice, returnChargeGold) {\r",
+									"  return giftAttachPrice === returnChargeGold;\r",
+									"}\r",
+									"\r",
+									"const rarityTypeChecked = checkRarity(rarityType);\r",
+									"const itemValueUnit = checkItemTypeAndRarity(addInType, rarityTypeChecked);\r",
+									"const giftAttachPrice = chargeGold(itemValueUnit, goldValueUnit, currentSSP);\r",
+									"\r",
+									"const result = compareChargeGold(giftAttachPrice, returnChargeGold);\r",
+									"\r",
+									"pm.test(\"Kết quả so sánh chargeGold: \" + result, function () {\r",
+									"  pm.expect(result).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"chargeGold\", returnChargeGold);\r",
+									"\r",
+									"console.log(\"addInType: \" + addInType);\r",
+									"console.log(\"rarityType: \" + rarityTypeChecked);\r",
+									"console.log(\"currentSSP: \" + currentSSP);\r",
+									"console.log(\"itemValueUnit: \" + itemValueUnit);\r",
+									"console.log(\"giftAttachPrice: \" + giftAttachPrice);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/mailbox/item/cost?kind=4&type={{addInId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"item",
+								"cost"
+							],
+							"query": [
+								{
+									"key": "kind",
+									"value": "4"
+								},
+								{
+									"key": "type",
+									"value": "{{addInId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Send item cho Player",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{requestAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addInId\": \"{{itemId}}\",\r\n    \"receiver\": \"{{receiverId}}\",\r\n    \"text\": \"{{$randomJobTitle}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseFeatureUrl}}/mailbox/send",
+							"host": [
+								"{{baseFeatureUrl}}"
+							],
+							"path": [
+								"mailbox",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check item sended",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"const idCurrent = jsonData.data.id;\r",
+									"const getKind = pm.environment.get(\"getKind\");\r",
+									"const getType = pm.environment.get(\"getType\");\r",
+									"const currency = `${getKind}_${getType}`;\r",
+									"const amountBefore = jsonData.data.inventories[currency].amount;\r",
+									"const totalAmountPurchase = pm.environment.get(\"getTotalAmount\");\r",
+									"const userId = pm.environment.get(\"userId\");\r",
+									"const amountCurrent = jsonData.data.inventories[currency].amount;\r",
+									"const currencyName = (() => {\r",
+									"  switch (currency) {\r",
+									"    case \"1_21\":\r",
+									"      return \"Rivals Buck\";\r",
+									"    case \"1_22\":\r",
+									"      return \"Rivals Gold\";\r",
+									"    case \"1_25\":\r",
+									"      return \"Enhancer\";\r",
+									"    default:\r",
+									"      return \"isn't defined\";\r",
+									"  }\r",
+									"})();\r",
+									"const packType = pm.environment.get(\"packType\");\r",
+									"let packName;\r",
+									"let payType;\r",
+									"switch (packType) {\r",
+									"  case 2:\r",
+									"    packName = \"Resource Rivals Gold\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 3:\r",
+									"    packName = \"Resource Enhancer\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 4:\r",
+									"    packName = \"Rivals Bucks Shop\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 5:\r",
+									"    packName = \"Daily Deals\";\r",
+									"    payType = \"1_22\";\r",
+									"    break;\r",
+									"  default:\r",
+									"    packName = \"isn't defined\";\r",
+									"}\r",
+									"payType = \"1_22\";\r",
+									"let amountBeforePay;\r",
+									"switch (payType) {\r",
+									"  case \"1_21\":\r",
+									"  case \"1_22\":\r",
+									"    amountBeforePay = jsonData.data.inventories[payType].amount;\r",
+									"    break;\r",
+									"  default:\r",
+									"    amountBeforePay = \"isn't defined\";\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"amountBefore\", amountBefore);\r",
+									"pm.environment.set(\"amountBeforePay\", amountBeforePay);\r",
+									"\r",
+									"const amountAfterPay = jsonData.data.inventories[payType].amount;\r",
+									"const totalPay = amountAfterPay - amountBeforePay;\r",
+									"\r",
+									"console.log(totalPay);\r",
+									"\r",
+									"// compare id\r",
+									"pm.test(\"Correct user\", () => {\r",
+									"  pm.expect(userId).to.equal(idCurrent);\r",
+									"});\r",
+									"\r",
+									"// count then pay for package\r",
+									"if (totalPay !== 0) {\r",
+									"  pm.test(`Pay ${totalPay/100000000} ${currencyName} for ${packName}`, () => {\r",
+									"    pm.expect(true).to.be.true;\r",
+									"  });\r",
+									"} else {\r",
+									"  pm.test(\"You didn't buy any pack in shop\", () => {\r",
+									"    pm.expect(true).to.not.be.true;\r",
+									"  });\r",
+									"}\r",
+									"\r",
+									"// count amount of currency\r",
+									"if (amountCurrent !== amountBefore + totalAmountPurchase) {\r",
+									"  pm.test(`Total amount of ${currencyName} is increased by ${totalAmountPurchase/100000000}`, () => {\r",
+									"    pm.expect(true).to.be.true;\r",
+									"  });\r",
+									"} else {\r",
+									"  pm.test(`The amount of ${currency} is ${totalAmountPurchase} and has not increased.`, () => {\r",
+									"    pm.expect(true).to.not.be.true;\r",
+									"  });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login (Admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"var getAdminToken = response.data.accessToken\r",
+							"postman.setEnvironmentVariable(\"adminAccessToken\", getAdminToken);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ThetaAuthUrl}}/loginByEmail",
+					"host": [
+						"{{ThetaAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "1. Login Co-leader",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// get request body\r",
+							"const requestBody = pm.request.body\r",
+							"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+							"const getEmail = requestBodyJson.email\r",
+							"const status = pm.response.code\r",
+							"\r",
+							"//get response body\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"var getAccessToken = jsonData.data.accessToken\r",
+							"\r",
+							"// get Email, accessToken\r",
+							"pm.environment.set(\"userEmail\", getEmail)\r",
+							"pm.environment.set(\"co-leaderAccessToken\", jsonData.data.accessToken)\r",
+							"\r",
+							"// get result of status \r",
+							"console.log(status)\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(status).to.be.oneOf([200, 201, 202])\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld+b2@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ThetaAuthUrl}}/loginByEmail",
+					"host": [
+						"{{ThetaAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "2. GetProfile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"userId\", responseJSON.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ThetanRivalsUrl}}/profile",
+					"host": [
+						"{{ThetanRivalsUrl}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "townID",
+			"value": "borealis-0"
+		},
+		{
+			"key": "guildId",
+			"value": "652f635b0e1762bf9852d994"
+		},
+		{
+			"key": "guildMotto",
+			"value": "string"
+		},
+		{
+			"key": "requiredTrophy",
+			"value": 1
+		},
+		{
+			"key": "userReceiverEmail",
+			"value": null
+		},
+		{
+			"key": "userInGuild1",
+			"value": "64ad2ddcde01e7ebb8a5fda2"
+		},
+		{
+			"key": "userInGuild2",
+			"value": "63be3c85b948ae5cb8baee09"
+		},
+		{
+			"key": "userInGuild3",
+			"value": "6363278f0a7a598c66d24fd8"
+		},
+		{
+			"key": "userInGuild4",
+			"value": "64084f5864970c2f06dcfc0f"
+		},
+		{
+			"key": "userInGuild5",
+			"value": "61c17faef7d885a913059d72"
+		},
+		{
+			"key": "userInGuild6",
+			"value": "627b96c00e37a07bd01a598c"
+		},
+		{
+			"key": "userInGuild7",
+			"value": "6305e0541136b88edb19b5ec"
+		},
+		{
+			"key": "guildName",
+			"value": "Jon Keebler",
+			"type": "string"
+		},
+		{
+			"key": "mailIds",
+			"value": "[\"34d94f4b\"]"
+		},
+		{
+			"key": "userReceiverId",
+			"value": "627c5ff00e37a07bd01a59a7"
+		},
+		{
+			"key": "userRequestEmail",
+			"value": "khanhld+wallet2@wolffungame.com"
+		},
+		{
+			"key": "requestAccessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk5MjQyNjc2LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTg2Mzc4NzYsInJvbGUiOjAsInNpZCI6IjB4NTRkOTJiNTRkZWRjYmVjZjEzYTY2ZjBlNmJkODExMzliODhlNzIyNiIsInN1YiI6IlRoZXRhbmlhbl85OTA3MDA3NzAzIiwidXNlcl9pZCI6IjY1Mzg4MDQ4YWFkZGQ2YjhmMjljNGI2NiJ9.GvHjTFNzDwNEmyf13yZeQvThSnqLH469qtBnBVOmd3Q"
+		},
+		{
+			"key": "receiverAccessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk5MjUzOTIxLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTg2NDkxMjEsInJvbGUiOjAsInNpZCI6IjB4ZmQ4Njk1YzI1ZjYyYTUxOTlmMTA1MmZjNzVkMWI1YTI1OThkZjNiMiIsInN1YiI6IkNEbDNRVnh2alRHSCIsInVzZXJfaWQiOiI2NTJlNjI5NWY1Mzg0ODgzZmQxNzc2ZmMifQ.7NjeywFK0aYvcdOwfPmaxob3vI3rSEBZvqwY8joNZ4g"
+		},
+		{
+			"key": "userRequestId",
+			"value": "65388048aaddd6b8f29c4b66"
+		},
+		{
+			"key": "receiverId",
+			"value": "652e6295f5384883fd1776fc"
+		},
+		{
+			"key": "userInGuild8",
+			"value": "619dc735379ffd1b14a94d3c"
+		},
+		{
+			"key": "userInGuild9",
+			"value": "6256411dd8fa1baacf8c703f"
+		},
+		{
+			"key": "userInGuild10",
+			"value": "639a88691e7a5c7f8e0605b2"
+		},
+		{
+			"key": "userInGuild11",
+			"value": "64ad1ec7de01e7ebb8a5fd9b"
+		},
+		{
+			"key": "userInGuild12",
+			"value": "629748b527a535109b15e07e"
+		},
+		{
+			"key": "userInGuild13",
+			"value": "63777fba0a7a598c66d25cb9"
+		},
+		{
+			"key": "userInGuild14",
+			"value": "6360dbd60a7a598c66d24f9f"
+		},
+		{
+			"key": "userInGuild15",
+			"value": "6410577864970c2f06dcfd3c"
+		},
+		{
+			"key": "userInGuild16",
+			"value": "639922301e7a5c7f8e060578"
+		},
+		{
+			"key": "userInGuild17",
+			"value": "61c078c5f7d885a913059d38"
+		},
+		{
+			"key": "userInGuild18",
+			"value": "6305dd4a1136b88edb19b5e7"
+		},
+		{
+			"key": "userInGuild19",
+			"value": "639a9a9d1e7a5c7f8e0605b9"
+		},
+		{
+			"key": "userInGuild20",
+			"value": "62a30a2967993d8ed7f0e16a"
+		},
+		{
+			"key": "userInGuild21",
+			"value": "62cfeb81f88e1482debba6f4"
+		},
+		{
+			"key": "userInGuild22",
+			"value": "627243fb8099432b307016df"
+		},
+		{
+			"key": "userInGuild23",
+			"value": "6376f5790a7a598c66d25c9c"
+		},
+		{
+			"key": "userInGuild24",
+			"value": "628781ae5607ef4ec74e0b35"
+		},
+		{
+			"key": "userInGuild25",
+			"value": "630dde311136b88edb19b955"
+		},
+		{
+			"key": "userInGuild26",
+			"value": "6296d132c950e99add87423d"
+		},
+		{
+			"key": "userInGuild27",
+			"value": "61a7a671fbb1a8b08bb1fb2d"
+		},
+		{
+			"key": "userInGuild28",
+			"value": "627cb2d30e37a07bd01a59af"
+		},
+		{
+			"key": "userInGuild29",
+			"value": "61a3279afbb1a8b08bb1fa8d"
+		},
+		{
+			"key": "userInGuild30",
+			"value": "65001a4caaddd6b8f29c2310"
+		},
+		{
+			"key": "userInGuild31",
+			"value": "638879070a7a598c66d2662c"
+		},
+		{
+			"key": "userInGuild32",
+			"value": "630ca1b01136b88edb19b8ce"
+		},
+		{
+			"key": "userInGuild33",
+			"value": "6408691664970c2f06dcfc1b"
+		},
+		{
+			"key": "userInGuild34",
+			"value": "64e5817cb496eeec0098cce1"
+		},
+		{
+			"key": "userInGuild35",
+			"value": "636483980a7a598c66d24ffd"
+		},
+		{
+			"key": "userInGuild36",
+			"value": "629722db27a535109b15e07b"
+		},
+		{
+			"key": "userInGuild37",
+			"value": "619b411ffe775c92cca3959c"
+		},
+		{
+			"key": "userInGuild38",
+			"value": "6399a65e1e7a5c7f8e06059a"
+		},
+		{
+			"key": "userInGuild39",
+			"value": "630600ef1136b88edb19b631"
+		},
+		{
+			"key": "userInGuild40",
+			"value": "627b9da10e37a07bd01a5999"
+		},
+		{
+			"key": "userInGuild41",
+			"value": "635615830a7a598c66d24e8b"
+		},
+		{
+			"key": "userInGuild42",
+			"value": "63e9f5a11d34a1e6ca71c839"
+		},
+		{
+			"key": "userInGuild43",
+			"value": "6296cdcfc950e99add87423c"
+		},
+		{
+			"key": "userInGuild44",
+			"value": "630f47661136b88edb19b9b2"
+		},
+		{
+			"key": "userInGuild45",
+			"value": "6296d7b4c950e99add874240"
+		},
+		{
+			"key": "userInGuild46",
+			"value": "64dc4c55316968294531dad0"
+		},
+		{
+			"key": "userInGuild47",
+			"value": "61aa4b69003b2a9503350ad2"
+		},
+		{
+			"key": "userInGuild48",
+			"value": "624e52ebd8fa1baacf8c6f67"
+		},
+		{
+			"key": "userInGuild49",
+			"value": "6406e16364970c2f06dcfbc2"
+		},
+		{
+			"key": "userInGuild50",
+			"value": "642164dd6072c08830dbc262"
+		},
+		{
+			"key": "userInGuild51",
+			"value": "647ed66688f315e600704abe"
+		},
+		{
+			"key": "requestId",
+			"value": "64ad2ddcde01e7ebb8a5fda2"
+		},
+		{
+			"key": "gulidName",
+			"value": "guild test nha"
+		},
+		{
+			"key": "itemId",
+			"value": ""
+		},
+		{
+			"key": "addInType",
+			"value": ""
+		},
+		{
+			"key": "addInId",
+			"value": ""
+		},
+		{
+			"key": "currentSSP",
+			"value": ""
+		},
+		{
+			"key": "rarityType",
+			"value": ""
+		},
+		{
+			"key": "chargeGold",
+			"value": ""
+		}
+	]
+}

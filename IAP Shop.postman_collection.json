@@ -1,0 +1,2942 @@
+{
+	"info": {
+		"_postman_id": "e8172d2d-48f8-4ee2-8cb5-4e82c19ecda4",
+		"name": "IAP Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Buy Resource PackItem (Mua Rival Gold & Enhancer Bằng Rival Buck)",
+			"item": [
+				{
+					"name": "1. Login (Login User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get request body\r",
+									"const requestBody = pm.request.body\r",
+									"const requestBodyJson = JSON.parse(requestBody.raw)\r",
+									"const getEmail = requestBodyJson.email\r",
+									"const status = pm.response.code\r",
+									"\r",
+									"//get response body\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var getAccessToken = jsonData.data.accessToken\r",
+									"\r",
+									"// get Email, accessToken\r",
+									"pm.environment.set(\"userEmail\", getEmail)\r",
+									"pm.environment.set(\"accessToken\", jsonData.data.accessToken)\r",
+									"\r",
+									"// get result of status \r",
+									"console.log(status)\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(status).to.be.oneOf([200, 201, 202])\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+b1@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2.Get Config IAP Shop (Lấy Packid rivalGoldItems & enhancerItems)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// const schema = {\r",
+									"//   \"properties\": {\r",
+									"//     \"alpha\": {\r",
+									"//       \"type\": \"boolean\"\r",
+									"//     }\r",
+									"//   }\r",
+									"// };\r",
+									"// pm.test('Schema is valid', function() {\r",
+									"//   pm.response.to.have.jsonSchema(schema);\r",
+									"// });\r",
+									"\r",
+									"// const replace = pm.environment.replaceIn(\"hi {{userid}}, i {{email}}\")\r",
+									"// const body = pm.request.url\r",
+									"// const method = pm.request.method\r",
+									"// const status = pm.response.status\r",
+									"\r",
+									"// console.log(status)\r",
+									"// console.log(method)\r",
+									"// console.log(body)\r",
+									"// console.log(replace)\r",
+									"\r",
+									"// Example with a plain string URL\r",
+									"pm.sendRequest('https://postman-echo.com/get', (error, response) => {\r",
+									"  if (error) {\r",
+									"    console.log(error);\r",
+									"  } else {\r",
+									"  console.log(response);\r",
+									"  }\r",
+									"});\r",
+									"\r",
+									"// Example with a full-fledged request\r",
+									"const postRequest = {\r",
+									"  url: 'https://postman-echo.com/post',\r",
+									"  method: 'POST',\r",
+									"  header: {\r",
+									"    'Content-Type': 'application/json',\r",
+									"    'X-Foo': 'bar'\r",
+									"  },\r",
+									"  body: {\r",
+									"    mode: 'raw',\r",
+									"    raw: JSON.stringify({ key: 'this is json' })\r",
+									"  }\r",
+									"};\r",
+									"pm.sendRequest(postRequest, (error, response) => {\r",
+									"  console.log(error ? error : response.json());\r",
+									"});\r",
+									"\r",
+									"// Example containing a test\r",
+									"pm.sendRequest('https://postman-echo.com/get', (error, response) => {\r",
+									"  if (error) {\r",
+									"    console.log(error);\r",
+									"  }\r",
+									"\r",
+									"  pm.test('response should be okay to process', () => {\r",
+									"    pm.expect(error).to.equal(null);\r",
+									"    pm.expect(response).to.have.property('code', 200);\r",
+									"    pm.expect(response).to.have.property('status', 'OK');\r",
+									"  });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/user-shop-pack",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"user-shop-pack"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Profile (Lấy User ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get stats from response\r",
+									"var jsonData = JSON.parse(responseBody)\r",
+									"var statsCurrent = JSON.parse(JSON.stringify(jsonData.data.stats))\r",
+									"\r",
+									"//add stats to environment\r",
+									"pm.environment.set(\"statsBefore\", JSON.stringify(jsonData.data.stats))\r",
+									"\r",
+									"//get id to environment\r",
+									"pm.environment.set(\"userId\", jsonData.data.id)\r",
+									"\r",
+									"//get stast before\r",
+									"const statsBefore = JSON.parse((pm.environment.get(\"statsBefore\")))\r",
+									"\r",
+									"var result  = JSON.stringify(statsBefore) === JSON.stringify(statsCurrent)\r",
+									"// compare stats\r",
+									"    if (result) {\r",
+									"        pm.test(\"Current stats isn't change\",() => {\r",
+									"            pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    }else {\r",
+									"        pm.test(\"Current stats is change\",() => {\r",
+									"            pm.expect(true).to.not.be.true\r",
+									"        })\r",
+									"    }\r",
+									"\r",
+									"console.log(result)\r",
+									"console.log(statsCurrent)\r",
+									"console.log(statsBefore)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Send Currency (Gửi Currency để mua Pack)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\",\n    \"inventories\": [\n        {\n            \"kind\": 1,\n            \"type\": 21,\n            \"amount\": 2000\n        }\n    ]\n}\n//kind currency : 1\n//type R-buck: 21\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "101. Admin Send Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"61c9a157e89e8850b84cf3fe\",\n    \"inventories\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 5\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory",
+										"admin",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f42b791a-6ea4-4cb5-b664-8eb19b650230"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Aug 2022 07:36:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "5. Buy Pack (Mua Resource Pack)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"var requestBody = pm.request.body\r",
+									"requestBody = JSON.parse(requestBody.raw)\r",
+									"var packId = requestBody[\"packId\"]\r",
+									"var packType = requestBody[\"packType\"]\r",
+									"var getKind = jsonData.data.items[0].data.kind\r",
+									"var getType = jsonData.data.items[0].data.type\r",
+									"var getTotalAmount = jsonData.data.items[0].data.amount\r",
+									"\r",
+									"console.log(getTotalAmount)\r",
+									"// get Type&Kind, Total value purchase\r",
+									"pm.environment.set(\"getType\", getType)\r",
+									"pm.environment.set(\"getKind\", getKind)\r",
+									"pm.environment.set(\"packId\", packId)\r",
+									"pm.environment.set(\"packType\", packType)\r",
+									"pm.environment.set(\"getTotalAmount\", getTotalAmount)\r",
+									"\r",
+									"console.log(packId)\r",
+									"console.log(packType)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"packId\": 1,\n    \"platformType\":0,\n    \"packType\": 2\n}\n// packid : id của slot - lấy ở bước 2\n// platformType Android : 0\n// platformType IOS : 1\n// platformType PC : 2\n// PackType ResourceRivalGold\t2\n// PackType ResourceEnhancer\t3\n\n// PTResourceRivalGold\t2\n// PTResourceEnhancer\t3\n// PTRivalBuckShop\t    4\n// PTDailyDeal\t        5",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/buy",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Inventory (Check Sau khi mua)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();\r",
+									"const idCurrent = jsonData.data.id;\r",
+									"const getKind = pm.environment.get(\"getKind\");\r",
+									"const getType = pm.environment.get(\"getType\");\r",
+									"const currency = `${getKind}_${getType}`;\r",
+									"const amountBefore = jsonData.data.inventories[currency].amount;\r",
+									"const totalAmountPurchase = pm.environment.get(\"getTotalAmount\");\r",
+									"const userId = pm.environment.get(\"userId\");\r",
+									"const amountCurrent = jsonData.data.inventories[currency].amount;\r",
+									"const currencyName = (() => {\r",
+									"  switch (currency) {\r",
+									"    case \"1_21\":\r",
+									"      return \"Rivals Buck\";\r",
+									"    case \"1_22\":\r",
+									"      return \"Rivals Gold\";\r",
+									"    case \"1_25\":\r",
+									"      return \"Enhancer\";\r",
+									"    default:\r",
+									"      return \"isn't defined\";\r",
+									"  }\r",
+									"})();\r",
+									"const packType = pm.environment.get(\"packType\");\r",
+									"let packName;\r",
+									"let payType;\r",
+									"switch (packType) {\r",
+									"  case 2:\r",
+									"    packName = \"Resource Rivals Gold\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 3:\r",
+									"    packName = \"Resource Enhancer\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 4:\r",
+									"    packName = \"Rivals Bucks Shop\";\r",
+									"    payType = \"1_21\";\r",
+									"    break;\r",
+									"  case 5:\r",
+									"    packName = \"Daily Deals\";\r",
+									"    payType = \"1_22\";\r",
+									"    break;\r",
+									"  default:\r",
+									"    packName = \"isn't defined\";\r",
+									"}\r",
+									"payType = \"1_22\";\r",
+									"let amountBeforePay;\r",
+									"switch (payType) {\r",
+									"  case \"1_21\":\r",
+									"  case \"1_22\":\r",
+									"    amountBeforePay = jsonData.data.inventories[payType].amount;\r",
+									"    break;\r",
+									"  default:\r",
+									"    amountBeforePay = \"isn't defined\";\r",
+									"}\r",
+									"\r",
+									"pm.environment.set(\"amountBefore\", amountBefore);\r",
+									"pm.environment.set(\"amountBeforePay\", amountBeforePay);\r",
+									"\r",
+									"const amountAfterPay = jsonData.data.inventories[payType].amount;\r",
+									"const totalPay = amountAfterPay - amountBeforePay;\r",
+									"\r",
+									"console.log(totalPay);\r",
+									"\r",
+									"// compare id\r",
+									"pm.test(\"Correct user\", () => {\r",
+									"  pm.expect(userId).to.equal(idCurrent);\r",
+									"});\r",
+									"\r",
+									"// count then pay for package\r",
+									"if (totalPay !== 0) {\r",
+									"  pm.test(`Pay ${totalPay/100000000} ${currencyName} for ${packName}`, () => {\r",
+									"    pm.expect(true).to.be.true;\r",
+									"  });\r",
+									"} else {\r",
+									"  pm.test(\"You didn't buy any pack in shop\", () => {\r",
+									"    pm.expect(true).to.not.be.true;\r",
+									"  });\r",
+									"}\r",
+									"\r",
+									"// count amount of currency\r",
+									"if (amountCurrent !== amountBefore + totalAmountPurchase) {\r",
+									"  pm.test(`Total amount of ${currencyName} is increased by ${totalAmountPurchase/100000000}`, () => {\r",
+									"    pm.expect(true).to.be.true;\r",
+									"  });\r",
+									"} else {\r",
+									"  pm.test(`The amount of ${currency} is ${totalAmountPurchase} and has not increased.`, () => {\r",
+									"    pm.expect(true).to.not.be.true;\r",
+									"  });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						},
+						"description": "Url : [https://data-rivals.staging.thetanarena.com/api/v1](https://data-rivals.staging.thetanarena.com/api/v1)"
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Buy Rival Buck Shop",
+			"item": [
+				{
+					"name": "1. Login (Login User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+16@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. My Inventory (Lấy thông tin Inventory để có gói bán)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var userid = response.data.id;\r",
+									"var id = \"643380d6865d2f358ac10dd4\";\r",
+									"pm.test(\"Test result of userid is \" + id, function(){\r",
+									"    pm.expect(userid).eql(id)\r",
+									"})\r",
+									"\r",
+									"// const responseJson = pm.response.json();\r",
+									"// const userId = responseJson.id;\r",
+									"// pm.environment.set(\"userId\", userId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "3. User Pack (Lấy PackID của dailyDealPack)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/user-shop-pack",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"user-shop-pack"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get Profile (Lấy User ID)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"email\", response.data.userEmail);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Send Currency",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"623d70f0d8fa1baacf8c6eaf\",\n    \"inventories\": [\n        {\n            \"kind\": 1,\n            \"type\": 21,\n            \"amount\": 500\n        }\n    ]\n}\n//kind currency : 1\n//type 21: 22\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "101. Admin Send Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"61c9a157e89e8850b84cf3fe\",\n    \"inventories\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 5\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory",
+										"admin",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f42b791a-6ea4-4cb5-b664-8eb19b650230"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Aug 2022 07:36:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "6. Buy Pack (Mua RivalBuckPack)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// PTResourceRivalGold\t2\r",
+									"// PTResourceEnhancer\t3\r",
+									"// PTRivalBuckShop\t    4\r",
+									"// PTDailyDeal\t        5"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"packId\": 4,\n    \"platformType\":0,\n    \"packType\":4\n}\n// packid : id của slot - lấy ở bước 2\n// platformType Android : 0\n// platformType IOS : 1\n// platformType PC : 2\n// PackType RivalBuckShop: 4",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/buy",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7 . My Inventory (Check sau khi mua)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Buy Daily Deals",
+			"item": [
+				{
+					"name": "1. Login (Login User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+4@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. My Inventory (Lấy thông tin Inventory để có gói bán)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "3. User Pack (Lấy PackID của dailyDealPack)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/user-shop-pack",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"user-shop-pack"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get Profile (Lấy User ID)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Send Currency",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\",\n    \"inventories\": [\n        {\n            \"kind\": 1,\n            \"type\": 21,\n            \"amount\": 100000\n        }\n    ]\n}\n//kind currency : 1\n//type Gold: 22\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "101. Admin Send Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"61c9a157e89e8850b84cf3fe\",\n    \"inventories\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 5\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory",
+										"admin",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f42b791a-6ea4-4cb5-b664-8eb19b650230"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Aug 2022 07:36:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "6. Buy Pack (Mua DailyDealsPack)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"pm.setEnvironmentVariable(\"id\", response.data.minionId)\r",
+									"\r",
+									"\r",
+									"\r",
+									"// PTResourceRivalGold\t2\r",
+									"// PTResourceEnhancer\t3\r",
+									"// PTRivalBuckShop\t    4\r",
+									"// PTDailyDeal\t        5"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"packId\": 4,\n    \"platformType\":0,\n    \"packType\": 5\n}\n// packid : id của slot - lấy ở bước 2\n// platformType Android : 0\n// platformType IOS : 1\n// platformType PC : 2\n// PackType DailyDeal: 5",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/buy",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7 . My Inventory (Check sau khi mua)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Buy = USD",
+			"item": [
+				{
+					"name": "1. Login (Login User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+4@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. My Inventory (Lấy thông tin Inventory để có gói bán)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "3. Get User Shop Pack (Lấy packID của Pack đang Avaiable của User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//PTResourceRivalBuck\t1\r",
+									"// PTResourceRivalGold\t2\r",
+									"// PTSeasonOffer\t    6\r",
+									"// PTNewArrival0\t    7\r",
+									"// PTNewArrival1\t    8\r",
+									"// PTFirstRecharge\t    9\r",
+									"// PTStarterPack\t    10\r",
+									"// PTSeasonPass\t        11\r",
+									"// PTSpecialOffer\t    12"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/user-shop-pack",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"user-shop-pack"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Buy = USD (Mua gói bán)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// packType ResourceRivalBuck\t1\r",
+									"// packType ResourceRivalGold\t2\r",
+									"// packType SeasonOffer\t        6\r",
+									"// packType NewArrival0\t        7\r",
+									"// packType NewArrival1\t        8\r",
+									"// packType FirstRecharge\t    9\r",
+									"// Pack Type StarterPack\t    10\r",
+									"// Pack Type SeasonPass\t        11\r",
+									"// packType SpecialOffer\t    12"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"packId\": 1,\n    \"platformType\":0,\n    \"packType\": 10,\n    \"receiptJson\":\"{\\\"orderId\\\":\\\"GPA.3372-1466-6281-28143\\\",\\\"packageName\\\":\\\"com.wolffun.thetanrivals\\\",\\\"productId\\\":\\\"com.wolffun.thetanrivals.starterpack.tier20\\\",\\\"purchaseTime\\\":1680772303629,\\\"purchaseState\\\":0,\\\"purchaseToken\\\":\\\"mjbcigbpafgpkepggjmalfka.AO-J1OwD4cq5j92HPLX-REOuDKiThjFPPrSAv4KuS0PIxa4jF1h2u1-DHfkNDpyrvWNE4n3dfi_FnnpTbtE52YuTBVdiFwOUMzNPYWLVmRwcpFbPBg1wyYE\\\",\\\"quantity\\\":1,\\\"acknowledged\\\":false}\",\n    \"signature\":\"ITTAQ5Vqil8aMVvxe/dXX3BG1ICUqhXC2jHPPoAse6t4v6GXAcrT9f2lZ1XXhzOlS2yQ8Gtg0JXrmlNG/tySiYjBfSWbFOtkXsrrN11I/qcQNYUHnaTuzfdJDLQLAPSTzT8pkPdLqEa0kLuS1nZ9gqNh4zWJ8CpXd5IAnqgK0FN+2RCkTEFLfFpMxPkOeYtDiR3nftFJKD7MGcSwzn45NesnR0WJXAbPTqkUHvxRhGFCjVPf/2xaDmtBu/0c4pumaCIJX736WOC7lf7dEz41EQpFFXXzJS46NSDFx/JujKobgc9iKLpxEpz0LinCG+jwvVBecXl2WMR8wsqpRBYP+w==\"\n}\n\n// packid : id của slot - lấy ở step 2\n// packType : xem phần Tests\n// receiptJson & signature : sử dụng admin tool ingame để purchase gói để nhận receiptJson & signature.",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/buy",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. My Inventory (Kiểm tra sau khi mua)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Open Mega Box",
+			"item": [
+				{
+					"name": "1. Login (Login User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"khanhld+2@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. My Inventory (Lấy thông tin Inventory của user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = postman.response.json()\r",
+									"pm.environment.set(\"id\", response.data.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "3. Get Profile (Lấy User ID)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. ViewBox (Lấy Version & Item khi mở box trong lần này)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"version\", response.data.version);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/rivals-box/view-box?boxType=3",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"rivals-box",
+								"view-box"
+							],
+							"query": [
+								{
+									"key": "boxType",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "ViewBox",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8181/api/v1/rivals-box/viewBox?boxType=3",
+									"host": [
+										"localhost"
+									],
+									"port": "8181",
+									"path": [
+										"api",
+										"v1",
+										"rivals-box",
+										"viewBox"
+									],
+									"query": [
+										{
+											"key": "boxType",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "5988b978-e3bf-4eea-9b18-accb30c1e300"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Nov 2022 01:37:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "337"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"items\": [\n            {\n                \"kind\": 1,\n                \"data\": {\n                    \"kind\": 1,\n                    \"type\": 25,\n                    \"amount\": 15000000000,\n                    \"decimals\": 8\n                }\n            }\n        ],\n        \"options\": {\n            \"0\": {\n                \"kind\": 4,\n                \"data\": {\n                    \"kind\": 4,\n                    \"type\": 12000010,\n                    \"amount\": 100000000,\n                    \"decimals\": 8\n                }\n            },\n            \"1\": {\n                \"kind\": 4,\n                \"data\": {\n                    \"kind\": 4,\n                    \"type\": 12000011,\n                    \"amount\": 100000000,\n                    \"decimals\": 8\n                }\n            }\n        },\n        \"version\": \"9b5e3b0ba67020b7b2c6972488027cc3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "6. OpenBox (Mở Box)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"boxType\": 3,\n    \"version\":\"{{version}}\",\n    \"selected\":\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/rivals-box/openbox",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"rivals-box",
+								"openbox"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. My Inventory (Kiểm tra sau khi mở box)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{accessToken}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Full Flow e2e",
+			"item": [
+				{
+					"name": "2. My Inventory (Lấy thông tin Inventory để có gói bán) Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "3. User Pack (Get Pack của User)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/user-shop-pack",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"user-shop-pack"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Profile (Lấy User ID) Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"userid\", response.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Send Currency (Gửi Currency để mua Pack)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\",\n    \"inventories\": [\n        {\n            \"kind\": 1,\n            \"type\": 21,\n            \"amount\": 100000\n        },\n        {\n            \"kind\": 1,\n            \"type\": 22,\n            \"amount\": 100000\n        }\n    ]\n}\n//send currency để mua pack\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "101. Admin Send Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"61c9a157e89e8850b84cf3fe\",\n    \"inventories\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 5\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory",
+										"admin",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f42b791a-6ea4-4cb5-b664-8eb19b650230"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Aug 2022 07:36:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "5. Buy Pack",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// PTResourceRivalGold\t2\r",
+									"// PTResourceEnhancer\t3\r",
+									"// PTRivalBuckShop\t    4\r",
+									"// PTDailyDeal\t        5"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"packId\":{{packid}},\n    \"platformType\":0,\n    \"packType\":{{packtype}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/buy",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Lấy Version MegaBox > pending",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"version\", response.data.version);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/rivals-box/view-box?boxType=3",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"rivals-box",
+								"view-box"
+							],
+							"query": [
+								{
+									"key": "boxType",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "ViewBox",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8181/api/v1/rivals-box/viewBox?boxType=3",
+									"host": [
+										"localhost"
+									],
+									"port": "8181",
+									"path": [
+										"api",
+										"v1",
+										"rivals-box",
+										"viewBox"
+									],
+									"query": [
+										{
+											"key": "boxType",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "5988b978-e3bf-4eea-9b18-accb30c1e300"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Nov 2022 01:37:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "337"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"items\": [\n            {\n                \"kind\": 1,\n                \"data\": {\n                    \"kind\": 1,\n                    \"type\": 25,\n                    \"amount\": 15000000000,\n                    \"decimals\": 8\n                }\n            }\n        ],\n        \"options\": {\n            \"0\": {\n                \"kind\": 4,\n                \"data\": {\n                    \"kind\": 4,\n                    \"type\": 12000010,\n                    \"amount\": 100000000,\n                    \"decimals\": 8\n                }\n            },\n            \"1\": {\n                \"kind\": 4,\n                \"data\": {\n                    \"kind\": 4,\n                    \"type\": 12000011,\n                    \"amount\": 100000000,\n                    \"decimals\": 8\n                }\n            }\n        },\n        \"version\": \"9b5e3b0ba67020b7b2c6972488027cc3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "6.1 Open MegaBox > pending",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"boxType\": 3,\n    \"version\":\"{{version}}\",\n    \"selected\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/rivals-box/openbox",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"rivals-box",
+								"openbox"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login (Admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"var getAdminToken = response.data.accessToken\r",
+							"postman.setEnvironmentVariable(\"adminAccessToken\", getAdminToken);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ThetaAuthUrl}}/loginByEmail",
+					"host": [
+						"{{ThetaAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

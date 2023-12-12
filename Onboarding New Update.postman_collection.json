@@ -1,0 +1,1266 @@
+{
+	"info": {
+		"_postman_id": "acbb2880-68e1-4832-aa00-4bd65bf7aee1",
+		"name": "Onboarding New Update",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Battle-1",
+			"item": [
+				{
+					"name": "1. Login Guest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function generateRandomString(length) {\r",
+									"  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';\r",
+									"  let randomDevice = '';\r",
+									"  for (let i = 0; i < length; i++) {\r",
+									"    const randomIndex = Math.floor(Math.random() * characters.length);\r",
+									"    randomDevice += characters.charAt(randomIndex);\r",
+									"  }\r",
+									"  return randomDevice;\r",
+									"}\r",
+									"const randomDevice = generateRandomString(6);\r",
+									"pm.globals.set(\"randomDevice\", randomDevice);\r",
+									"console.log(randomDevice);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true,
+							"user-agent": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deviceId\":\"{{randomDevice}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginAsGuest",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginAsGuest"
+							]
+						},
+						"description": "[https://data.staging.thetanarena.com/theta/v1]()"
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Profile User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"userId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						},
+						"description": "[https://data-rivals.staging.thetanarena.com/api/v1]()"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Bắt đầu Battle 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\",\n  \"lastRound\": null\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						},
+						"description": "[https://thetan-rivals-multiplayer.staging.thetanarena.com]()"
+					},
+					"response": []
+				},
+				{
+					"name": "4. Round 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 0,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \"death\" : 1,\n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						},
+						"description": "[https://thetan-rivals-multiplayer.staging.thetanarena.com]()"
+					},
+					"response": []
+				},
+				{
+					"name": "5. Round 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"playerScoreAtBattle1\", response.data.playerStat.playerScore);\r",
+									"postman.setEnvironmentVariable(\"matchId\", response.data.matchId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 1,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						},
+						"description": "[https://thetan-rivals-multiplayer.staging.thetanarena.com]()"
+					},
+					"response": []
+				},
+				{
+					"name": "6. Tăng Battle khi end Round 3 Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc5MzcxNjUwLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2Nzg3NjY4NTAsInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.mifi7Uvqn3tFZYHt19nBnDGvwlqYIUzDeMWuF2jfiyc"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"{{userId}}\",\n  \"battle\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/battle-reward/admin/increasebattle",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"battle-reward",
+								"admin",
+								"increasebattle"
+							]
+						},
+						"description": "[https://data-rivals.staging.thetanarena.com/api/v1]()"
+					},
+					"response": []
+				},
+				{
+					"name": "7. Preview Gift",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"// function random\r",
+									"var radomIndex = Math.floor(Math.random() * 3);\r",
+									"console.log(radomIndex)\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"giftThenion\", response.data[radomIndex].data.type);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{OnboardingUrls}}/onboarding/gift/preview?giftType=5",
+							"host": [
+								"{{OnboardingUrls}}"
+							],
+							"path": [
+								"onboarding",
+								"gift",
+								"preview"
+							],
+							"query": [
+								{
+									"key": "giftType",
+									"value": "5"
+								}
+							]
+						},
+						"description": "[https://thetan-rivals-service-preview-pr-1044.staging.thetanarena.com/api/v1]()"
+					},
+					"response": []
+				},
+				{
+					"name": "8. Claim Gift",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"giftType\": 5, // gift type = 5 reward onboarding 1, =6 reward onboarding 2\n    \"rewardType\": {{giftThenion}} // reward duoc chon o type 5,6\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{OnboardingUrls}}/onboarding/gift/claim",
+							"host": [
+								"{{OnboardingUrls}}"
+							],
+							"path": [
+								"onboarding",
+								"gift",
+								"claim"
+							]
+						},
+						"description": "[https://thetan-rivals-service-preview-pr-1044.staging.thetanarena.com/api/v1]()"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Battle-2",
+			"item": [
+				{
+					"name": "1. Bắt đầu Battle 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\",\n  \"lastRound\": null\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Round 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 0,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Round 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 1,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Round 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 2,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 50,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Tăng battle 2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc5MzcxNjUwLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2Nzg3NjY4NTAsInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.mifi7Uvqn3tFZYHt19nBnDGvwlqYIUzDeMWuF2jfiyc"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"{{userId}}\",\n  \"battle\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/battle-reward/admin/increasebattle",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"battle-reward",
+								"admin",
+								"increasebattle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Preview Gift",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"\r",
+									"// function random\r",
+									"var radomIndex = Math.floor(Math.random() * 3);\r",
+									"console.log(radomIndex)\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"giftBackbling\", response.data[radomIndex].data.type);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{OnboardingUrls}}/onboarding/gift/preview?giftType=6",
+							"host": [
+								"{{OnboardingUrls}}"
+							],
+							"path": [
+								"onboarding",
+								"gift",
+								"preview"
+							],
+							"query": [
+								{
+									"key": "giftType",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Claim gift",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjkxNDgyODYxLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTA4NzgwNjEsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IlRoZXRhbmlhbl85NTU0OTcxNDE5IiwidXNlcl9pZCI6IjY0YzhjMDZkOTY3ZjU0MTUxMGVmMWZlOSJ9.iwy3wdaSQtoub7pMjzkooii1xNYJhnQOcHKbWEG6TX8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"giftType\": 6, \r\n    \"rewardType\": {{giftBackbling}}\r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{OnboardingUrls}}/onboarding/gift/claim",
+							"host": [
+								"{{OnboardingUrls}}"
+							],
+							"path": [
+								"onboarding",
+								"gift",
+								"claim"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Battle-3",
+			"item": [
+				{
+					"name": "1. Bắt đầu Battle 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\",\n  \"lastRound\": null\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Round 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 0,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Round 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"mapId\", response.data.mapIds[0].mapId);\r",
+									"postman.setEnvironmentVariable(\"mapDifficulty\", response.data.mapIds[0].mapDifficulty);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 1,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 180,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Round 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc4ODc4MjE5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzgyNzM0MTksInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.ojJMtavznMIT2S3hfmWRDXDbMwfaxpXu6SNXEvWGNY0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastRound\": { \n    \"roundId\": 2,\n    \n    \"mapId\": {{mapId}},\n    \"mapDifficulty\": {{mapDifficulty}},\n    \"timeInRound\": 50,\n    \"roundComplete\": true,\n    \n    \"passedCP\": 10,\n    \"maxCP\": 10\n  },\n  \"operationSystem\": \"\",\n  \"appVersion\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{Multiplayer}}/onboarding/findmatch",
+							"host": [
+								"{{Multiplayer}}"
+							],
+							"path": [
+								"onboarding",
+								"findmatch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Tăng battle 3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Thunder Client (https://www.thunderclient.com)"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjc5MzcxNjUwLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2Nzg3NjY4NTAsInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImtoYWkgMTIiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.mifi7Uvqn3tFZYHt19nBnDGvwlqYIUzDeMWuF2jfiyc"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"{{userId}}\",\n  \"battle\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/battle-reward/admin/increasebattle",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"battle-reward",
+								"admin",
+								"increasebattle"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get config",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{OnboardingUrls}}/onboarding/config",
+					"host": [
+						"{{OnboardingUrls}}"
+					],
+					"path": [
+						"onboarding",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find match",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lastRound\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Multiplayer}}/onboarding/findmatch",
+					"host": [
+						"{{Multiplayer}}"
+					],
+					"path": [
+						"onboarding",
+						"findmatch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Gift",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{OnboardingUrls}}/onboarding/gift/user",
+					"host": [
+						"{{OnboardingUrls}}"
+					],
+					"path": [
+						"onboarding",
+						"gift",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjkwODYzNzI0LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTAyNTg5MjQsInJvbGUiOjIsInNpZCI6IjB4MmI2ZTc2OWU1ZDk5ZGM5NDdkMWE4MzgyN2IwMDQxN2ZiZjFmMjY4ZCIsInN1YiI6ImhlbGxvMTIzNDUiLCJ1c2VyX2lkIjoiNjM0ZDNhMDdkYmIzZTU4ZTAwZDYzOTQ2In0.0zB9wv6h4lseuWcYWrZklMgZQOWDqQy4NnpwMWnNpgY",
+				"type": "string"
+			}
+		]
+	}
+}

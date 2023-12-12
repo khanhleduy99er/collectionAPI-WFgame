@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "c0478ea2-70ac-49e6-9fcf-274279e4ab89",
+		"name": "QC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "SendCode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld+12@wolffungame.com\",\r\n    \"createAccount\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/sendCode",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"sendCode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld+12@wolffungame.com\",\r\n    \"code\": 148510 \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/createAccount",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"createAccount"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CreateAccount_ERROR",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"minhtinh@wolffungame.com\",\r\n    \"code\": 230131\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/createAccount",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"createAccount"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 28 Aug 2021 15:40:46 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 2002,\n    \"status\": \"Email Exist In Database\",\n    \"message\": \"Email exist in db, you must login\"\n}"
+				}
+			]
+		},
+		{
+			"name": "LoginAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"pm.setEnvironmentVariable(\"accessToken\", response.data.accessToken);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"drewkeebler@gerhold.info\",\r\n    \"code\": \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/loginAccount",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"loginAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginAsGuest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"accessToken\", response.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"connection": true,
+					"accept-encoding": true,
+					"accept": true,
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceId\":\"{{deviceId}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/loginAsGuest",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"loginAsGuest"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": ""
+		}
+	]
+}

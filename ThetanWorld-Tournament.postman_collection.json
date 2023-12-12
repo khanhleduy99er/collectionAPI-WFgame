@@ -1,0 +1,3494 @@
+{
+	"info": {
+		"_postman_id": "cd812553-a787-4957-9906-b6f8852acc92",
+		"name": "ThetanWorld-Tournament",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Match",
+					"item": [
+						{
+							"name": "Admin battle end",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"appVersion\": \"string\",\r\n    \"gameMode\": 0,\r\n    \"inGameMode\": 0,\r\n    \"listPlayers\": [\r\n        {\r\n            \"battleRank\": 4,\r\n            \"brain\": 0,\r\n            \"heroId\": \"string\",\r\n            \"listRoundResult\": [\r\n                {\r\n                    \"maxCP\": 0,\r\n                    \"passedCP\": 0,\r\n                    \"result\": true,\r\n                    \"roundId\": 0,\r\n                    \"roundPlayTime\": 0\r\n                }\r\n            ],\r\n            \"playerId\": \"string\"\r\n        }\r\n    ],\r\n    \"listRoundInfo\": [\r\n        {\r\n            \"difficultLevel\": 0,\r\n            \"mapId\": 0,\r\n            \"roundId\": 0,\r\n            \"timeInRound\": 0\r\n        }\r\n    ],\r\n    \"matchId\": \"string\",\r\n    \"operationSystem\": \"string\",\r\n    \"partyId\": \"string\",\r\n    \"partyMode\": \"string\",\r\n    \"questData\": {\r\n        \"dance\": 0,\r\n        \"isPlayAgain\": true,\r\n        \"voice\": 0\r\n    },\r\n    \"thetan\": \"string\",\r\n    \"timeInBattle\": 0,\r\n    \"userID\": \"string\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{tournamentId}/admin-battle-end",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{tournamentId}",
+										"admin-battle-end"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": " Battle end",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"appVersion\": \"string\",\r\n    \"gameMode\": 0,\r\n    \"inGameMode\": 0,\r\n    \"listPlayers\": [\r\n        {\r\n            \"battleRank\": 4,\r\n            \"brain\": 0,\r\n            \"heroId\": \"string\",\r\n            \"listRoundResult\": [\r\n                {\r\n                    \"maxCP\": 0,\r\n                    \"passedCP\": 0,\r\n                    \"result\": true,\r\n                    \"roundId\": 0,\r\n                    \"roundPlayTime\": 0\r\n                }\r\n            ],\r\n            \"playerId\": \"string\"\r\n        }\r\n    ],\r\n    \"listRoundInfo\": [\r\n        {\r\n            \"difficultLevel\": 0,\r\n            \"mapId\": 0,\r\n            \"roundId\": 0,\r\n            \"timeInRound\": 0\r\n        }\r\n    ],\r\n    \"matchId\": \"string\",\r\n    \"operationSystem\": \"string\",\r\n    \"partyId\": \"string\",\r\n    \"partyMode\": \"string\",\r\n    \"questData\": {\r\n        \"dance\": 0,\r\n        \"isPlayAgain\": true,\r\n        \"voice\": 0\r\n    },\r\n    \"thetan\": \"string\",\r\n    \"timeInBattle\": 0,\r\n    \"userID\": \"string\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{tournamentId}/battle-end",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{tournamentId}",
+										"battle-end"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Admin Battle End",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"listRoundInfo\": [\r\n    {\r\n\r\n      \"timeInRound\": 3457445\r\n    }\r\n  ],\r\n  \"userID\": \"{{userId}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{TW_Tournament}}/tournament/battle-end",
+									"host": [
+										"{{TW_Tournament}}"
+									],
+									"path": [
+										"tournament",
+										"battle-end"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Wheel",
+					"item": [
+						{
+							"name": " Admin change everything on Wheel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"remainingSpin\": 0, \"userID\": \"string\"}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/wheel/admin/change",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"wheel",
+										"admin",
+										"change"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin charge reward on Wheel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"amount\": 0}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/wheel/admin/charge",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"wheel",
+										"admin",
+										"charge"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Spin wheel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/wheel/spin",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"wheel",
+										"spin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get wheel",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/wheel",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"wheel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": " Get user wheel",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/wheel/user",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"wheel",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tournament",
+					"item": [
+						{
+							"name": "Leader board",
+							"item": [
+								{
+									"name": "Admin View_leaderboard",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{adminAccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"viewLeaderboard\",\r\n    \"viewLeaderboard\": {\r\n        \"leaderboardId\": 2,\r\n        \"showFullInfo\": true,\r\n        \"stageId\": 0,\r\n        \"tournamentId\": \"{{idTournament}}\"\r\n    }\r\n}"
+										},
+										"url": {
+											"raw": "{{ThetanWorldUrl}}/tournament/admin-test",
+											"host": [
+												"{{ThetanWorldUrl}}"
+											],
+											"path": [
+												"tournament",
+												"admin-test"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Play again",
+							"item": [
+								{
+									"name": "Add play again chance by ticket",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{adminAccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/play-again",
+											"host": [
+												"{{ThetanWorldUrl}}"
+											],
+											"path": [
+												"tournament",
+												"{{idTournament}}",
+												"play-again"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get signature for action on tournament (join, predict)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"kind\": 0,\r\n    \"state\": \"string\",\r\n    \"targetUserId\": \"string\",\r\n    \"type\": 0\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/222/predict/signature",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"222",
+										"predict",
+										"signature"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Predict made by user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"targetUserId\": \"string\"}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/predict",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"predict"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get join signature by tournamentId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"kind\": 0,\r\n    \"state\": \"string\",\r\n    \"type\": 0\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/join/signature",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{{idTournament}}",
+										"join",
+										"signature"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": " Get buy ticket signature",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ticket\": 0\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/ticket/signature",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"ticket",
+										"signature"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get join price by tournamentId",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/join",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{{idTournament}}",
+										"join"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin Add ticket",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"addTicket\": -109,\r\n    \"userId\": \"{{userId}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/admin-test",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"admin-test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Vote",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"voteRandom = Math.floor(Math.random() * 3);\r",
+											"pm.globals.set(\"voteRandom\", voteRandom);\r",
+											"console.log(voteRandom)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"choice\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/tournament/{{idTournament}}}/vote",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{{idTournament}}}",
+										"vote"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Tounament",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"var response = JSON.parse(responseBody);\r",
+											"var idTournament = response.data.id\r",
+											"var stageArr = response.data.stageConf;\r",
+											"\r",
+											"\r",
+											"postman.setEnvironmentVariable(\"idTournament\", idTournament );\r",
+											"postman.setEnvironmentVariable(\"playerPerLB\", response.data.playerPerLB);\r",
+											"postman.setEnvironmentVariable(\"participantLimit\", response.data.participantLimit)\r",
+											"\r",
+											"\r",
+											"function convertTime(isoTime) {\r",
+											"  // Tạo một đối tượng Date từ chuỗi thời gian ISO 8601\r",
+											"  var date = new Date(isoTime);\r",
+											"\r",
+											"  // Trích xuất các thành phần thời gian từ đối tượng Date\r",
+											"  var year = date.getFullYear();\r",
+											"  var month = (date.getMonth() + 1).toString().padStart(2, '0');\r",
+											"  var day = date.getDate().toString().padStart(2, '0');\r",
+											"  var hours = date.getHours().toString().padStart(2, '0');\r",
+											"  var minutes = date.getMinutes().toString().padStart(2, '0');\r",
+											"  var seconds = date.getSeconds().toString().padStart(2, '0');\r",
+											"\r",
+											"  // Tạo định dạng thời gian mới (ví dụ: dd/mm/yyyy HH:MM:SS)\r",
+											"  var formattedTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;\r",
+											"\r",
+											"  return formattedTime;\r",
+											"}\r",
+											"\r",
+											"function subtractTime(start, end) {\r",
+											"  // Tạo đối tượng Date từ chuỗi thời gian start và end\r",
+											"  var startDate = new Date(start);\r",
+											"  var endDate = new Date(end);\r",
+											"\r",
+											"  // Tính toán khoảng cách thời gian bằng cách trừ giá trị milliseconds của endDate và startDate\r",
+											"  var timeDiff = endDate.getTime() - startDate.getTime();\r",
+											"\r",
+											"  // Chuyển đổi khoảng cách thời gian thành các đơn vị giờ, phút, giây\r",
+											"  var hours = Math.floor(timeDiff / (1000 * 60 * 60));\r",
+											"  var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));\r",
+											"  var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);\r",
+											"\r",
+											"  // Trả về khoảng cách thời gian\r",
+											"  return time = hours + \":\" + minutes + \":\" + seconds\r",
+											"}\r",
+											"\r",
+											"\r",
+											"// Sử dụng hàm convertTime để chuyển đổi thời gian\r",
+											"var openRegisterTime = response.data.openRegisterTime;\r",
+											"var endRegisterTime = response.data.endRegisterTime;\r",
+											"var endedTime = response.data.endedAt;\r",
+											"\r",
+											"var convertedOpenTime = convertTime(openRegisterTime);\r",
+											"var convertedEndTime = convertTime(endRegisterTime);\r",
+											"var timeGapRegister = subtractTime(openRegisterTime, endRegisterTime);\r",
+											"var timeGapStartTour = subtractTime(endRegisterTime, endedTime)\r",
+											"\r",
+											"console.log(\"Thời gian mở đăng ký: \" + convertedOpenTime);\r",
+											"console.log(\"Thời gian kết thúc đăng ký: \" + convertedEndTime);\r",
+											"console.log(\"Time gap của Tournament: \" + timeGapRegister);\r",
+											"// console.log(\"Time start Tournament khi endTimeRegister :\" + timeGapStartTour);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"HiepSiMu\",\r\n    \"openRegisterAt\": \"\",\r\n    \"dynamicConfig\": {\r\n        \"tag\": \"THETAN_RIVALS_TOURNAMENT_1\",\r\n        \"registrationCountdownEnds\": \"30m\",\r\n        \"claimDuration\": \"150m\",\r\n        \"countdownStarts\": \"10s\",\r\n        \"tournamentGame\": 1,\r\n        \"battlesPerStage\": 2,\r\n        \"voteToStart\": 4,\r\n        \"predictionEvent\": true,\r\n        \"predictDuration\": \"30s\",\r\n        \"fortuneWheelEvent\": true,\r\n        \"playerPerLB\": 10,\r\n        \"participantLimit\": 156,\r\n        \"stageConf\": [\r\n            {\r\n                \"countdownVote\": \"5m\",\r\n                \"countdownViewVote\": \"30s\",\r\n                \"countdownEnds\": \"20m\",\r\n                \"countDownLB\": \"30s\",\r\n                \"qualifiedRank\": 5,\r\n                \"rounds\": [\r\n                    {\r\n                        \"mapID\": 201,\r\n                        \"difficulty\": 2,\r\n                        \"mapName\": \"Obstacle Racing - Toy Story\",\r\n                        \"timeLimit\": \"90s\"\r\n                    }\r\n                ],\r\n                \"battleRequirement\": {\r\n                    \"hero_type\": [\r\n                        0\r\n                    ]\r\n                },\r\n                \"totalPlayers\": 10\r\n            },\r\n            {\r\n                \"countdownVote\": \"5m\",\r\n                \"countdownViewVote\": \"30s\",\r\n                \"countdownEnds\": \"3m\",\r\n                \"countDownLB\": \"30s\",\r\n                \"qualifiedRank\": 5,\r\n                \"rounds\": [\r\n                    {\r\n                        \"mapID\": 201,\r\n                        \"difficulty\": 2,\r\n                        \"mapName\": \"Obstacle Racing - Toy Story\",\r\n                        \"timeLimit\": \"90s\"\r\n                    }\r\n                ],\r\n                \"battleRequirement\": {\r\n                    \"hero_type\": [\r\n                        0\r\n                    ]\r\n                },\r\n                \"totalPlayers\": 10\r\n            },\r\n            {\r\n                \"countdownVote\": \"5m\",\r\n                \"countdownViewVote\": \"30s\",\r\n                \"countdownEnds\": \"3m\",\r\n                \"countDownLB\": \"30s\",\r\n                \"qualifiedRank\": 5,\r\n                \"rounds\": [\r\n                    {\r\n                        \"mapID\": 201,\r\n                        \"difficulty\": 2,\r\n                        \"mapName\": \"Obstacle Racing - Toy Story\",\r\n                        \"timeLimit\": \"90s\"\r\n                    }\r\n                ],\r\n                \"battleRequirement\": {\r\n                    \"hero_type\": [\r\n                        0\r\n                    ]\r\n                },\r\n                \"totalPlayers\": 10\r\n            },\r\n            {\r\n                \"countdownVote\": \"5m\",\r\n                \"countdownViewVote\": \"30s\",\r\n                \"countdownEnds\": \"20m\",\r\n                \"countDownLB\": \"30s\",\r\n                \"qualifiedRank\": 10,\r\n                \"rounds\": [\r\n                    {\r\n                        \"mapID\": 201,\r\n                        \"difficulty\": 2,\r\n                        \"mapName\": \"Obstacle Racing - Toy Story\",\r\n                        \"timeLimit\": \"90s\"\r\n                    }\r\n                ],\r\n                \"battleRequirement\": {\r\n                    \"hero_type\": [\r\n                        0\r\n                    ]\r\n                },\r\n                \"totalPlayers\": 10\r\n            }\r\n        ],\r\n        \"playAgainLimit\": 3,\r\n        \"playFreeLimit\": 2,\r\n        \"pool\": {\r\n            \"join\": {\r\n                \"operation\": 10,\r\n                \"base\": 80,\r\n                \"wheel\": 10\r\n            },\r\n            \"play_again\": {\r\n                \"operation\": 10,\r\n                \"base\": 80,\r\n                \"wheel\": 10\r\n            },\r\n            \"prediction\": {\r\n                \"operation\": 10,\r\n                \"prediction\": 90\r\n            }\r\n        },\r\n        \"currencies\": [\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 31,\r\n                \"usages\": {\r\n                    \"join\": {\r\n                        \"fixed\": \"1_31_100000000_8\"\r\n                    },\r\n                    \"prediction\": {\r\n                        \"fixed\": \"1_31_100000000_8\"\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 12,\r\n                \"usages\": {\r\n                    \"join\": {\r\n                        \"anchored\": {\r\n                            \"currency\": \"1_31_100000000_8\",\r\n                            \"expSeconds\": 60\r\n                        }\r\n                    },\r\n                    \"prediction\": {\r\n                        \"anchored\": {\r\n                            \"currency\": \"1_31_100000000_8\",\r\n                            \"expSeconds\": 60\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 29,\r\n                \"usages\": {\r\n                    \"join\": {\r\n                        \"fixed\": \"1_29_100000000_8\"\r\n                    },\r\n                    \"prediction\": {\r\n                        \"fixed\": \"1_29_100000000_8\"\r\n                    },\r\n                    \"play_again\": {\r\n                        \"fixed\": \"1_29_100000000_8\"\r\n                    }\r\n                }\r\n            }\r\n        ],\r\n        \"wheel\": {\r\n            \"delayEndDuration\": \"1m\",\r\n            \"numPools\": 4,\r\n            \"rewardPositionUI\": \"8_4_3_7_8_2_6_5_8_6_7_1\",\r\n            \"rewards\": [\r\n                {\r\n                    \"id\": 1,\r\n                    \"rawItem\": \"1_31_10000000000_8\",\r\n                    \"chargeSpeed\": 0.0085,\r\n                    \"capacity\": 100\r\n                },\r\n                {\r\n                    \"id\": 2,\r\n                    \"rawItem\": \"1_31_5000000000_8\",\r\n                    \"chargeSpeed\": 0.0082,\r\n                    \"capacity\": 50\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"rawItem\": \"1_12_5000000000_8\",\r\n                    \"chargeSpeed\": 0.0051,\r\n                    \"capacity\": 20\r\n                },\r\n                {\r\n                    \"id\": 4,\r\n                    \"rawItem\": \"5_0_1_0\",\r\n                    \"chargeSpeed\": 0.0079,\r\n                    \"capacity\": 10,\r\n                    \"listRewards\": [\r\n                        402,\r\n                        1700,\r\n                        1\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 5,\r\n                    \"rawItem\": \"1_12_1500000000_8\",\r\n                    \"chargeSpeed\": 0.0122,\r\n                    \"capacity\": 5\r\n                },\r\n                {\r\n                    \"id\": 6,\r\n                    \"rawItem\": \"1_12_500000000_8\",\r\n                    \"chargeSpeed\": 0.0189,\r\n                    \"capacity\": 2\r\n                },\r\n                {\r\n                    \"id\": 7,\r\n                    \"rawItem\": \"3_0_1_0\",\r\n                    \"chargeSpeed\": 0.0292,\r\n                    \"capacity\": 1,\r\n                    \"listRewards\": [\r\n                        1004,\r\n                        1005,\r\n                        1006,\r\n                        1017,\r\n                        1018,\r\n                        1019,\r\n                        21003,\r\n                        21006,\r\n                        21007,\r\n                        21010,\r\n                        21013,\r\n                        21014,\r\n                        21015\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"rawItem\": \"1_22_1000000000_8\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Generating new User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminAccessToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"limit\": 50,\r\n    \"country\": \"VN\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/generateListAccessTokens",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"generateListAccessTokens"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin add User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjo0ODM3ODkxNTYyLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODQyOTE1NjIsInJvbGUiOjIsInNpZCI6IiIsInN1YiI6InhCMUZBTGlDYUNtZyIsInVzZXJfaWQiOiI2MzFmNDAxZTE4ZmQyZDc38l_Xyc"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tournamentId\": {{idTournament}},\r\n    \"userIds\": [\r\n        \"64c09e61967f541510ef1e2a\",\r\n        \"64c09d73967f541510ef1e29\",\r\n        \"64c09c3c967f541510ef1e28\",\r\n        \"64c09beb967f541510ef1e27\",\r\n        \"64c099c3967f541510ef1e26\",\r\n        \"64c0995b967f541510ef1e25\",\r\n        \"64c09647967f541510ef1e24\",\r\n        \"64c08f0e967f541510ef1e23\",\r\n        \"64c08e8e967f541510ef1e22\",\r\n        \"64c08dea967f541510ef1e21\",\r\n        \"64c08c70967f541510ef1e20\",\r\n        \"64c08bdc967f541510ef1e1f\",\r\n        \"64c08b8e967f541510ef1e1e\",\r\n        \"64c08b33967f541510ef1e1d\",\r\n        \"64c0885e967f541510ef1e1c\",\r\n        \"64c087c5967f541510ef1e1b\",\r\n        \"64c08777967f541510ef1e1a\",\r\n        \"64c06c8f967f541510ef1e19\",\r\n        \"64bfd3b5967f541510ef1e18\",\r\n        \"64bfcfeb967f541510ef1e17\"\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "https://thetan-rivals-service-preview-pr-952.staging.thetanarena.com/api/v1/tournament/admin-adduser",
+									"protocol": "https",
+									"host": [
+										"thetan-rivals-service-preview-pr-952",
+										"staging",
+										"thetanarena",
+										"com"
+									],
+									"path": [
+										"api",
+										"v1",
+										"tournament",
+										"admin-adduser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Join Tournament by Ticket",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/2222/join",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"2222",
+										"join"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Claim Off-chain Reward",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/reward?type=39",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{{idTournament}}",
+										"reward"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "39"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change state of tournament",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"claimableInfo\": {\r\n    \"enable\": true\r\n  },\r\n  \"pauseInfo\": {\r\n    \"enable\": false,\r\n    \"isPaused\": false\r\n  },\r\n  \"tourId\": \"{{idTournament}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/admin/state",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"admin",
+										"state"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin force start",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tournamentId\": \"{{idTournament}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/admin/force-start",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"admin",
+										"force-start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sponsor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{adminAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjkyNjc2MDc2LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTIwNzEyNzYsInJvbGUiOjEsInNpZCI6IjB4ODVmNTFlZTJlZjY1MzVhNmE5YThiOGY5ZWRlYzk5YzAwMzczNjJmOCIsInN1YiI6ImRhdDEiLCJ1c2VyX2lkIjoiNjFhODllOWRmYmIxYThiMDhiYjFmYjhjIn0.1um7pn6xdavYMV-nsqtS_y0lrDWQtNF1TMWhOWns0lM"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"item\": {\r\n    \"amount\": 20000000000,\r\n    \"decimals\": 8,\r\n    \"kind\": 1,\r\n    \"properties\": {},\r\n    \"type\": 34\r\n  },\r\n\"pool\": \"final\",\r\n// \"pool\": \"wheel\",\r\n//   \"pool\": \"prediction\",\r\n  \"tournamentId\": \"{{idTournament}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/admin/sponsor",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"admin",
+										"sponsor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Claim On Chain",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjkzOTcxNDIwLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTMzNjY2MjAsInJvbGUiOjAsInNpZCI6IjB4YmU3ZDE3ZTE2YTdlZjE4MjViMWYxYWJiMjhiMTExYzkwZDViNzRlNCIsInN1YiI6ImtoYW5oTGVvcGFyZCIsInVzZXJfaWQiOiI2NGFiYzg1MGRlMDFlN2ViYjhhNWZkNWQifQ.QJOY7MtEsBsUZngVhmVpA1eTt9VetHBRBbXJjdLLhm0"
+									}
+								],
+								"url": {
+									"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}r/reward?type=final",
+									"host": [
+										"{{ThetanWorldUrl}}"
+									],
+									"path": [
+										"tournament",
+										"{{idTournament}}r",
+										"reward"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "final"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Get Infor Tournament",
+			"item": [
+				{
+					"name": "List of tournaments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get join price by tournamentId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{tournamentId}/join/price",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{tournamentId}",
+								"join",
+								"price"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prediction leaderboard of tournament",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/prediction-leaderboard?from=1&size=5&stageID=1",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"prediction-leaderboard"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "stageID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user's tournament profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/profile",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail Tournament",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"var rewardBusdTour = response.data.prize.totalPool[1].value\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"maxPlayers\", response.data.maxPlayers)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.currentStage)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.status.status)\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"playFreeLimit\", response.data.maxPlayers)\r",
+									"pm.collectionVariables.set(\"rewardBusdTour\", rewardBusdTour)\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Overall leaderboard of tournament",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var myUserId = pm.environment.get(\"userId\")\r",
+									"var participantLimit = parseFloat(pm.environment.get(\"participantLimit\"));\r",
+									"\r",
+									"console.log(participantLimit)\r",
+									"postman.setEnvironmentVariable(\"totalPageOverallLB\" , response.data.pagination.totalPages);\r",
+									"\r",
+									"var found = false;\r",
+									"if (response.data && response.data.players) {\r",
+									"  var players = response.data.players;\r",
+									"  for (var i = 0; i < players.length; i++) {\r",
+									"    if (players[i].userId === myUserId) {\r",
+									"      found = true;\r",
+									"      rankUser = players[i].rank;\r",
+									"      break;\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"if (found) {\r",
+									"        pm.test(\"Player có tham gia tournament và ở rank thứ \" + rankUser + \" trong overall leader board\",() => {\r",
+									"            pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    }else {\r",
+									"        pm.test(\"Player không tham gia tournament hoặc đã bị loại\",() => {\r",
+									"            pm.expect(true).to.not.be.true\r",
+									"        })\r",
+									"    }\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success flag is true\", function () {\r",
+									"    pm.expect(pm.response.json().success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data object is present\", function () {\r",
+									"    pm.expect(pm.response.json().data).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ParticipantLimit is not equal total record in Overall leader board\", function () {\r",
+									"    pm.expect(pm.response.json().data.pagination.totalRecords).to.eql(participantLimit);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of top participant is equal:  \" + response.data.players[0].rank, function () {\r",
+									"    pm.expect(response.data.players[0].rank).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of seccond participant is equal:  \" + response.data.players[1].rank, function () {\r",
+									"    pm.expect(response.data.players[1].rank).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of three participant is equal:  \" + response.data.players[2].rank, function () {\r",
+									"    pm.expect(response.data.players[2].rank).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List overall leader board contains\" , function () {\r",
+									"    pm.expect(response.data.players.length).to.be.above(0);\r",
+									"});\r",
+									"console.log(myUserId)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentId/leaderboard/all?page=2&size=10",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentId",
+								"leaderboard",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "stageID",
+									"value": "1",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prediction leaderboard of tournament",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/leaderboard/prediction?from=1&size=4&stageID=1",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"leaderboard",
+								"prediction"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "4"
+								},
+								{
+									"key": "stageID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get play again price/ info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/play-again",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"play-again"
+							],
+							"query": [
+								{
+									"key": "tournamnet",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user detail of a tournament",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/self",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"self"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leader board of user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentId/leaderboard?page=1&size=50&stageID=1",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentId",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "50"
+								},
+								{
+									"key": "stageID",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": " Tournament stage detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/stage/1?stageId=2",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"stage",
+								"1"
+							],
+							"query": [
+								{
+									"key": "stageId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Info of a user on Tournament Leaderboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/leaderboard/user?userId={{userId}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"leaderboard",
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reward info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentID/reward?type=final",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentID",
+								"reward"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "final"
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentID",
+									"value": "{{idTournament}}"
+								}
+							]
+						},
+						"description": "StartFragment\n\nGet the reward (prediction/ wheel/ final), if the response contains onChain reward, user need to call get signature and will claim on-chain with off-chain rewards, but if the reponse only contains off-chain rewards, than user can call get reward directly and earn immediately.\n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "Check LB user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentId/leaderboard/user?userId={{userId}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentId",
+								"leaderboard",
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leader board",
+			"item": [
+				{
+					"name": "Tạo Tournament",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)",
+									"var idTournament = response.data.id;",
+									"var stageArr = response.data.stages;",
+									"// var createdAt = response.data.createdAt",
+									"",
+									"// createdAt.updateAt = new Date().toISOString();",
+									"",
+									"// console.log(createdAt)",
+									"pm.collectionVariables.set(\"qualifiedRankFinal\", response.data.config.stageConf[-1])",
+									"pm.collectionVariables.set(\"idTournament\", idTournament);",
+									"pm.collectionVariables.set(\"playerPerLB\", response.data.config.playerPerLB);",
+									"pm.collectionVariables.set(\"participantLimit\", response.data.config.participantLimit);",
+									"",
+									"function convertTime(isoTime) {",
+									"    var date = new Date(isoTime);",
+									"    var year = date.getFullYear();",
+									"    var month = (date.getMonth() + 1).toString().padStart(2, '0');",
+									"    var day = date.getDate().toString().padStart(2, '0');",
+									"    var hours = date.getHours().toString().padStart(2, '0');",
+									"    var minutes = date.getMinutes().toString().padStart(2, '0');",
+									"    var seconds = date.getSeconds().toString().padStart(2, '0');",
+									"    var formattedTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;",
+									"    return formattedTime;",
+									"}",
+									"",
+									"function subtractTime(start, end) {",
+									"    var startDate = new Date(start);",
+									"    var endDate = new Date(end);",
+									"    var timeDiff = endDate.getTime() - startDate.getTime();",
+									"    var hours = Math.floor(timeDiff / (1000 * 60 * 60));",
+									"    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));",
+									"    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);",
+									"    return time = hours + \":\" + minutes + \":\" + seconds;",
+									"}",
+									"",
+									"var openRegisterTime = response.data.openRegisterTime;",
+									"var endRegisterTime = response.data.endRegisterTime;",
+									"var endedTime = response.data.endedAt;",
+									"",
+									"var convertedOpenTime = convertTime(openRegisterTime);",
+									"var convertedEndTime = convertTime(endRegisterTime);",
+									"var timeGapRegister = subtractTime(openRegisterTime, endRegisterTime);",
+									"var timeGapStartTour = subtractTime(endRegisterTime, endedTime);",
+									"",
+									"pm.test(\"Thời gian mở đăng ký: \" + convertedOpenTime, function () {",
+									"    pm.expect(convertedOpenTime).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Thời gian kết thúc đăng ký: \" + convertedEndTime, function () {",
+									"    pm.expect(convertedEndTime).to.be.a(\"string\");",
+									"});",
+									"",
+									"pm.test(\"Time gap của Tournament: \" + timeGapRegister, function () {",
+									"    pm.expect(timeGapRegister).to.be.a(\"string\");",
+									"});",
+									"",
+									"console.log(\"Thời gian mở đăng ký: \" + convertedOpenTime);",
+									"console.log(\"Thời gian kết thúc đăng ký: \" + convertedEndTime);",
+									"console.log(\"Time gap của Tournament: \" + timeGapRegister);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TestPlayed\",\r\n    \"openRegisterAt\": \"2023-10-27T8:10:00+00:00\",\r\n    \"dynamicconfig\": {\r\n        \"tag\": \"THETAN_RIVALS_TOURNAMENT_1\",\r\n        \"registrationCountdownEnds\": \"72h\",\r\n        \"claimDuration\": \"240h\",\r\n        \"countdownStarts\": \"3m11s\",\r\n        \"tournamentGame\": 1,\r\n        \"voteToStart\": 9,\r\n        \"predictDuration\": \"5m\",\r\n        \"playerPerLB\": 10,\r\n        \"score\": {\r\n            \"primaryType\": 1,\r\n            \"secondaryType\": 2\r\n        },\r\n        \"participantLimit\": 30,\r\n        \"stageConf\": [\r\n            {\r\n                \"countdownVote\": \"5m\",\r\n                \"countdownViewVote\": \"3m11s\",\r\n                \"countdownEnds\": \"24h\",\r\n                \"countDownLB\": \"3m31s\",\r\n                \"qualifiedRank\": 9,\r\n                \"rounds\": [\r\n                    {\r\n                        \"mapID\": 3001,\r\n                        \"difficulty\": 1,\r\n                        \"mapName\": \"Suburban Road\",\r\n                        \"timeLimit\": \"90s\"\r\n                    }\r\n                ],\r\n                \"battleRequirement\": {\r\n                    \"hero_type\": []\r\n                },\r\n                \"totalPlayers\": 10\r\n            }\r\n        ],\r\n        \"playAgainLimit\": 10,\r\n        \"playFreeLimit\": 100,\r\n        \"pool\": {\r\n            \"join\": {\r\n                \"operation\": 10,\r\n                \"base\": 80,\r\n                \"wheel\": 10\r\n            },\r\n            \"play_again\": {\r\n                \"operation\": 10,\r\n                \"base\": 80,\r\n                \"wheel\": 10\r\n            },\r\n            \"prediction\": {\r\n                \"operation\": 10,\r\n                \"prediction\": 90\r\n            }\r\n        },\r\n        \"currencies\": [\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 34,\r\n                \"usages\": {\r\n                    \"prediction\": {\r\n                        \"fixed\": \"1_34_100000000_8\"\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 12,\r\n                \"usages\": {\r\n                    \"prediction\": {\r\n                        \"anchored\": {\r\n                            \"currency\": \"1_34_100000000_8\",\r\n                            \"expSeconds\": 60\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            {\r\n                \"kind\": 1,\r\n                \"type\": 29,\r\n                \"usages\": {\r\n                    \"join\": {\r\n                        \"fixed\": \"1_29_0_8\"\r\n                    },\r\n                    \"prediction\": {\r\n                        \"fixed\": \"1_29_100000000_8\"\r\n                    },\r\n                    \"play_again\": {\r\n                        \"fixed\": \"1_29_100000000_8\"\r\n                    }\r\n                }\r\n            }\r\n        ],\r\n        \"wheel\": {\r\n            \"delayEndDuration\": \"24h\",\r\n            \"numPools\": 4,\r\n            \"rewardPositionUI\": \"8_4_3_7_8_2_6_5_8_6_7_1\",\r\n            \"rewards\": [\r\n                {\r\n                    \"id\": 1,\r\n                    \"rawItem\": \"1_34_5000000000_8\",\r\n                    \"chargeSpeed\": 0.0085,\r\n                    \"capacity\": 50\r\n                },\r\n                {\r\n                    \"id\": 2,\r\n                    \"rawItem\": \"5_0_1_0\",\r\n                    \"chargeSpeed\": 0.0082,\r\n                    \"capacity\": 8.88,\r\n                    \"listRewards\": [\r\n                        1302\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 3,\r\n                    \"rawItem\": \"4_14_1_0\",\r\n                    \"chargeSpeed\": 0.0051,\r\n                    \"capacity\": 7.51,\r\n                    \"listRewards\": [\r\n                        14000006\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 4,\r\n                    \"rawItem\": \"4_15_1_0\",\r\n                    \"chargeSpeed\": 0.0079,\r\n                    \"capacity\": 6.78,\r\n                    \"listRewards\": [\r\n                        15000005\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 5,\r\n                    \"rawItem\": \"4_16_1_0\",\r\n                    \"chargeSpeed\": 0.0122,\r\n                    \"capacity\": 7.41,\r\n                    \"listRewards\": [\r\n                        16000004\r\n                    ]\r\n                },\r\n                {\r\n                    \"id\": 6,\r\n                    \"rawItem\": \"1_22_2000000000_8\",\r\n                    \"chargeSpeed\": 0.0189,\r\n                    \"capacity\": 0.28\r\n                },\r\n                {\r\n                    \"id\": 7,\r\n                    \"rawItem\": \"1_22_1000000000_8\",\r\n                    \"chargeSpeed\": 0.0292,\r\n                    \"capacity\": 0.14\r\n                },\r\n                {\r\n                    \"id\": 8,\r\n                    \"rawItem\": \"1_22_500000000_8\"\r\n                }\r\n            ]\r\n        }\r\n    },\r\n    \"prices\": [\r\n        {\r\n            \"kind\": 1,\r\n            \"type\": 34,\r\n            \"usages\": {\r\n                \"buy_ticket\": {\r\n                    \"fixed\": \"1_34_100000000_8\"\r\n                },\r\n                \"claim_reward\": {}\r\n            }\r\n        },\r\n        {\r\n            \"kind\": 1,\r\n            \"type\": 2,\r\n            \"usages\": {\r\n                \"claim_reward\": {}\r\n            }\r\n        },\r\n        {\r\n            \"kind\": 1,\r\n            \"type\": 12,\r\n            \"usages\": {\r\n                \"claim_reward\": {\r\n                    \"fixed\": \"1_2_100000000_8\"\r\n                }\r\n            }\r\n        }\r\n    ],\r\n    \"info\": {\r\n        \"thumbnail\": \"public_assets/tournament/tournament_background.png\",\r\n        \"title\": \"RIVALS TOURNAMENT 1\",\r\n        \"description\": \"Sơn test tour\",\r\n        \"urlMoreDetail\": \"https://marketplace.thetanarena.com/\",\r\n        \"urlDownloadGame\": \"https://thetanrivals.page.link/RivalsTournament_DL_MKP\"\r\n    },\r\n    \"rank\": {\r\n        \"a\": 1,\r\n        \"minTopUI\": 1,\r\n        \"maxTopUI\": 3\r\n    },\r\n    \"overall\": {\r\n        \"pMin\": 10\r\n    },\r\n    \"wheel\": {\r\n        \"maxPoolChargeWheel\": 1\r\n    },\r\n    \"setupTime\": {\r\n        \"waitToProcessPhase\": \"2m\",\r\n        \"delaySubmitScore\": \"100s\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tournament",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tournament"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check detail Tournament Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"maxPlayers\", response.data.maxPlayers)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.currentStage)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.status.status)\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"playFreeLimit\", response.data.maxPlayers)\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1. Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json();\r",
+									"pm.collectionVariables.set(\"accessToken\", responseBody.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n    // \"email\": \"khanhld+beta1@wolffungame.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseAuthUrl}}/loginByEmail",
+							"host": [
+								"{{baseAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. GetProfile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"userId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Admin Add ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"addTicket\": {\r\n    \"addTicket\": 1,\r\n    \"userId\": \"{{userId}}\"\r\n  },\r\n  \"type\": \"addTicket\",\r\n  \"viewLeaderboard\": {\r\n    \"leaderboardId\": 0,\r\n    \"showFullInfo\": true,\r\n    \"stageId\": 0,\r\n    \"tournamentId\": \"{{idTournament}}\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tournament/admin-test",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tournament",
+								"admin-test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Join Tournament by Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/tournament/{{idTournament}}/join",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. LB của user khi chưa có score",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var participantLimit = pm.collectionVariables.get(\"participantLimit\")",
+									"var playerPerLB = pm.collectionVariables.get(\"playerPerLB\")",
+									"var env = pm.environment.name",
+									"",
+									"pm.test(\"A result property is present and is 'success'\", function () {",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.code).to.eql(0);",
+									"});",
+									"",
+									"if(env == \"Staging\"){",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"    pm.expect(env).to.eql(\"Staging\")",
+									"})",
+									"}else if (env == \"UAT\") {",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"    pm.expect(env).to.eql(\"UAT\")",
+									"})",
+									"}else {",
+									"    pm.expect(true).to.equal(false)",
+									"}",
+									"",
+									"//check số lượng người tham gia Tournament = Sl người được xếp vào leader board",
+									"pm.test(\"So sánh số người đã tham gia Tournament = số người được xếp vào leader board\", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    function roundedDivision(participantLimit, playerPerLB) {",
+									"        var result = participantLimit / playerPerLB;",
+									"        var totalPages = Math.round(result);",
+									"        return totalPages;",
+									"    }",
+									"    pm.expect(pagination).to.have.property(\"totalRecords\").that.is.a('number').that.equal(participantLimit);",
+									"})",
+									"",
+									"pm.test(\"Kiểm tra maxPage Leader board = 50 \", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    pm.expect(pagination).to.have.property(\"maxPageSize\").that.is.a('number').that.eql(50);",
+									"})",
+									"",
+									"// Số lượng người có trong 1 leader board ",
+									"function demSoLuongNguoiChoi(responseJSON) {",
+									"    var players = jsonData.data.players;",
+									"    var totalPlayers = players.length;",
+									"",
+									"    return totalPlayers;",
+									"}",
+									"",
+									"var playerNum = demSoLuongNguoiChoi(jsonData)",
+									"",
+									"pm.test(\"Leader board có \" + playerNum + \" player\", function () {",
+									"    pm.expect(true).to.be.true;",
+									"});",
+									"",
+									"// Kiểm tra player có được xếp hạng trong leader board",
+									"if (jsonData.data.me) {",
+									"    var rank = jsonData.data.me.rank",
+									"    pm.test(\"Player có trong leader board\", function () {",
+									"        pm.expect(jsonData.data.me).to.be.an(\"object\");",
+									"    });",
+									"    pm.test(\"Rank của Player trong leader board \" + rank, function () {",
+									"        pm.expect(true).to.eql(true);",
+									"    });",
+									"",
+									"    ",
+									"} else {",
+									"    pm.test(\"Player không có trong leader board\", function () {",
+									"        pm.expect(true).to.not.be(true)",
+									"    });",
+									"}",
+									"",
+									"var jsonData = pm.response.json();",
+									"var participantLimit = pm.collectionVariables.get(\"participantLimit\");",
+									"var playerPerLB = pm.collectionVariables.get(\"playerPerLB\");",
+									"var env = pm.collectionVariables.get(\"env\");",
+									"",
+									"pm.test(\"A result property is present and is 'success'\", function () {",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.code).to.eql(0);",
+									"});",
+									"",
+									"if(env == \"Staging\"){",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"    pm.expect(env).to.eql(\"Staging\")",
+									"})",
+									"}else if (env == \"UAT\") {",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"    pm.expect(env).to.eql(\"UAT\")",
+									"})",
+									"}else {",
+									"    pm.expect(true).to.equal(false)",
+									"}",
+									"",
+									"//check số lượng người tham gia Tournament = Sl người được xếp vào leader board",
+									"pm.test(\"So sánh số người đã tham gia Tournament = số người được xếp vào leader board\", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    function roundedDivision(participantLimit, playerPerLB) {",
+									"        var result = participantLimit / playerPerLB;",
+									"        var totalPages = Math.round(result);",
+									"        return totalPages;",
+									"    }",
+									"    pm.expect(pagination).to.have.property(\"totalRecords\").that.is.a('number').that.equal(participantLimit);",
+									"})",
+									"",
+									"pm.test(\"Kiểm tra maxPage Leader board = 50 \", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    pm.expect(pagination).to.have.property(\"maxPageSize\").that.is.a('number').that.eql(50);",
+									"})",
+									"",
+									"// Số lượng người có trong 1 leader board ",
+									"function demSoLuongNguoiChoi(responseJSON) {",
+									"    var players = jsonData.data.players;",
+									"    var totalPlayers = players.length;",
+									"",
+									"    return totalPlayers;",
+									"}",
+									"",
+									"var playerNum = demSoLuongNguoiChoi(jsonData)",
+									"",
+									"pm.test(\"Leader board có \" + playerNum + \" player\", function () {",
+									"    pm.expect(true).to.be.true;",
+									"});",
+									"",
+									"// Kiểm tra player có được xếp hạng trong leader board",
+									"if (jsonData.data.me) {",
+									"    var rank = jsonData.data.me.rank",
+									"    pm.test(\"Player có trong leader board\", function () {",
+									"        pm.expect(jsonData.data.me).to.be.an(\"object\");",
+									"    });",
+									"    pm.test(\"Rank của Player trong leader board \" + rank, function () {",
+									"        pm.expect(true).to.eql(true);",
+									"    });",
+									"",
+									"    ",
+									"} else {",
+									"    pm.test(\"Player không có trong leader board\", function () {",
+									"        pm.expect(true).to.not.be(true)",
+									"    });",
+									"}",
+									"// Retrieve the saved \"participantLimit\" value from the collection variable",
+									"var participantLimit = pm.collectionVariables.get(\"participantLimit\");",
+									"// Retrieve the saved \"playerPerLB\" value from the collection variable",
+									"var playerPerLB = pm.collectionVariables.get(\"playerPerLB\");",
+									"// Retrieve the saved \"env\" value from the collection variable",
+									"var env = pm.collectionVariables.get(\"env\");",
+									"",
+									"pm.test(\"A result property is present and is 'success'\", function () {",
+									"    pm.expect(jsonData.success).to.be.true;",
+									"    pm.expect(jsonData.code).to.eql(0);",
+									"});",
+									"",
+									"if(env == \"Staging\"){",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"        pm.expect(env).to.eql(\"Staging\")",
+									"    })",
+									"}else if (env == \"UAT\") {",
+									"    pm.test(\"Environment đang ở : \" + env, function(){",
+									"        pm.expect(env).to.eql(\"UAT\")",
+									"    })",
+									"}else {",
+									"    pm.expect(true).to.equal(false)",
+									"}",
+									"",
+									"//check số lượng người tham gia Tournament = Sl người được xếp vào leader board",
+									"pm.test(\"So sánh số người đã tham gia Tournament = số người được xếp vào leader board\", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    function roundedDivision(participantLimit, playerPerLB) {",
+									"        var result = participantLimit / playerPerLB;",
+									"        var totalPages = Math.round(result);",
+									"        return totalPages;",
+									"    }",
+									"    pm.expect(pagination).to.have.property(\"totalRecords\").that.is.a('number').that.equal(participantLimit);",
+									"})",
+									"",
+									"pm.test(\"Kiểm tra maxPage Leader board = 50 \", function () {",
+									"    var pagination = jsonData.data.pagination;",
+									"    pm.expect(pagination).to.have.property(\"maxPageSize\").that.is.a('number').that.eql(50);",
+									"})",
+									"",
+									"// Số lượng người có trong 1 leader board ",
+									"function demSoLuongNguoiChoi(responseJSON) {",
+									"    var players = jsonData.data.players;",
+									"    var totalPlayers = players.length;",
+									"",
+									"    return totalPlayers;",
+									"}",
+									"",
+									"var playerNum = demSoLuongNguoiChoi(jsonData)",
+									"",
+									"pm.test(\"Leader board có \" + playerNum + \" player\", function () {",
+									"    pm.expect(true).to.be.true;",
+									"});",
+									"",
+									"// Kiểm tra player có được xếp hạng trong leader board",
+									"if (jsonData.data.me) {",
+									"    var rank = jsonData.data.me.rank",
+									"    pm.test(\"Player có trong leader board\", function () {",
+									"        pm.expect(jsonData.data.me).to.be.an(\"object\");",
+									"    });",
+									"    pm.test(\"Rank của Player trong leader board \" + rank, function () {",
+									"        pm.expect(true).to.eql(true);",
+									"    });",
+									"",
+									"    ",
+									"} else {",
+									"    pm.test(\"Player không có trong leader board\", function () {",
+									"        pm.expect(true).to.not.be(true)",
+									"    });",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/leaderboard?page=1&size=50&stageID=1&tournamentId={{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "50"
+								},
+								{
+									"key": "stageID",
+									"value": "1"
+								},
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						},
+						"description": "- Chỉ sử dụng API này khi Tournament đã bắt đầu\n    \n- Check LB của user mong muốn thì login User đó để lấy accessToken"
+					},
+					"response": []
+				},
+				{
+					"name": "6. Check LB ở Stage hiện tại của User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var myUserId = pm.environment.get(\"userId\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentId/stage/:stageId",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentId",
+								"stage",
+								":stageId"
+							],
+							"variable": [
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								},
+								{
+									"key": "stageId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Fake score Battle End",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"const minNumber = 80000;\r",
+									"const maxNumber = 90000;\r",
+									"\r",
+									"score = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;\r",
+									"\r",
+									"pm.globals.set(\"score\", score);\r",
+									"console.log(score);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"listRoundInfo\": [\r\n    {\r\n      \"timeInRound\": {{score}}\r\n    }\r\n  ],\r\n  \"userID\": \"{{userId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/admin-battle-end",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"admin-battle-end"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Check rank User sau khi fake Score",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var myUserId = pm.collectionVariables.get(\"userId\")\r",
+									"\r",
+									"var found = false;\r",
+									"if (response.data && response.data.players) {\r",
+									"  var players = response.data.players;\r",
+									"  for (var i = 0; i < players.length; i++) {\r",
+									"    if (players[i].userId === myUserId) {\r",
+									"      found = true;\r",
+									"      break;\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"if (found) {\r",
+									"        pm.test(\"Player có trong leader board\",() => {\r",
+									"            pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    }else {\r",
+									"        pm.test(\"Player không tham gia tournament hoặc đã bị loại\",() => {\r",
+									"            pm.expect(true).to.not.be.true\r",
+									"        })\r",
+									"    }\r",
+									"\r",
+									"// Số lượng người có trong 1 leader board \r",
+									"function demSoLuongNguoiChoi(responseJSON) {\r",
+									"    var players = response.data.players;\r",
+									"    var totalPlayers = players.length;\r",
+									"\r",
+									"    return totalPlayers;\r",
+									"}\r",
+									"\r",
+									"var playerNum = demSoLuongNguoiChoi(response)\r",
+									"\r",
+									"pm.test(\"Leader board có \" + playerNum + \" player\", function () {\r",
+									"    pm.expect(true).to.be.true;\r",
+									"});\r",
+									"\r",
+									"// Kiểm tra player có được xếp hạng trong leader board\r",
+									"if (response.data.me) {\r",
+									"    var rank = response.data.me.rank\r",
+									"    pm.test(\"Rank của Player trong leader board \" + rank, function () {\r",
+									"        pm.expect(true).to.eql(true);\r",
+									"    });\r",
+									"\r",
+									"    \r",
+									"} else {\r",
+									"    pm.test(\"Player không có trong leader board\", function () {\r",
+									"        pm.expect(true).to.not.be(true)\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									"\r",
+									"console.log(myUserId)\r",
+									"console.log(found)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/leaderboard?page=1&size=20&stageID=0&tournamentId={{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "stageID",
+									"value": "0"
+								},
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						},
+						"description": "- Chỉ sử dụng API này khi Tournament đã bắt đầu\n    \n- Check LB của user mong muốn thì login User đó để lấy accessToken"
+					},
+					"response": []
+				},
+				{
+					"name": "9. Infor chi tiết của User in Tournament",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var idTournament = response.data.id\r",
+									"pm.collectionVariables.set(\"idTournament\", idTournament );\r",
+									"var createdAt = response.data.createdAt\r",
+									"var updatedAt = response.data.updatedAt\r",
+									"var timeObj = {\r",
+									"    createdAt,\r",
+									"    updatedAt\r",
+									"}\r",
+									"\r",
+									"// chuyen time iSO sang dinh dang ngay thang\r",
+									"function updateUpdatedAtToCurrentTime(timeObj) {\r",
+									"  timeObj.updatedAt = new Date().toISOString();\r",
+									"  timeObj.createdAt = new Date().toISOString();\r",
+									"  return timeObj;\r",
+									"}\r",
+									"console.log(timeObj)\r",
+									"\r",
+									"function convertTime(isoTime) {\r",
+									"  // Tạo một đối tượng Date từ chuỗi thời gian ISO 8601\r",
+									"  var date = new Date(isoTime);\r",
+									"\r",
+									"  // Trích xuất các thành phần thời gian từ đối tượng Date\r",
+									"  var year = date.getFullYear();\r",
+									"  var month = (date.getMonth() + 1).toString().padStart(2, '0');\r",
+									"  var day = date.getDate().toString().padStart(2, '0');\r",
+									"  var hours = date.getHours().toString().padStart(2, '0');\r",
+									"  var minutes = date.getMinutes().toString().padStart(2, '0');\r",
+									"  var seconds = date.getSeconds().toString().padStart(2, '0');\r",
+									"\r",
+									"  // Tạo định dạng thời gian mới (ví dụ: dd/mm/yyyy HH:MM:SS)\r",
+									"  var formattedTime = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ':' + seconds;\r",
+									"\r",
+									"  return formattedTime;\r",
+									"}\r",
+									"\r",
+									"// Sử dụng hàm convertTime để chuyển đổi thời gian\r",
+									"var openRegisterTime = response.data.openRegisterTime;\r",
+									"var endRegisterTime = response.data.endRegisterTime;\r",
+									"var endedAt = response.data.endedAt;\r",
+									"\r",
+									"var convertedOpenTime = convertTime(openRegisterTime);\r",
+									"var convertedEndTimeRegister = convertTime(endRegisterTime);\r",
+									"\r",
+									"console.log(\"Thời gian mở đăng ký: \" + convertedOpenTime);\r",
+									"console.log(\"Thời gian kết thúc đăng ký: \" + convertedEndTimeRegister);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/self",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"self"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10. Overall leader board",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"var myUserId = pm.environment.get(\"userId\")\r",
+									"var participantLimit = parseFloat(pm.environment.get(\"participantLimit\"));\r",
+									"\r",
+									"console.log(participantLimit)\r",
+									"pm.collectionVariables.set(\"totalPageOverallLB\" , response.data.pagination.totalPages);\r",
+									"\r",
+									"var found = false;\r",
+									"if (response.data && response.data.players) {\r",
+									"  var players = response.data.players;\r",
+									"  for (var i = 0; i < players.length; i++) {\r",
+									"    if (players[i].userId === myUserId) {\r",
+									"      found = true;\r",
+									"      rankUser = players[i].rank;\r",
+									"      break;\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"if (found) {\r",
+									"        pm.test(\"Player có tham gia tournament và ở rank thứ \" + rankUser + \" trong overall leader board\",() => {\r",
+									"            pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    }else {\r",
+									"        pm.test(\"Player không tham gia tournament hoặc đã bị loại\",() => {\r",
+									"            pm.expect(true).to.not.be.true\r",
+									"        })\r",
+									"    }\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Success flag is true\", function () {\r",
+									"    pm.expect(pm.response.json().success).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Data object is present\", function () {\r",
+									"    pm.expect(pm.response.json().data).to.not.be.undefined;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ParticipantLimit is not equal total record in Overall leader board\", function () {\r",
+									"    pm.expect(pm.response.json().data.pagination.totalRecords).to.eql(participantLimit);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of top participant is equal:  \" + response.data.players[0].rank, function () {\r",
+									"    pm.expect(response.data.players[0].rank).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of seccond participant is equal:  \" + response.data.players[1].rank, function () {\r",
+									"    pm.expect(response.data.players[1].rank).to.eql(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Rank of three participant is equal:  \" + response.data.players[2].rank, function () {\r",
+									"    pm.expect(response.data.players[2].rank).to.eql(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"List overall leader board contains\" , function () {\r",
+									"    pm.expect(response.data.players.length).to.be.above(0);\r",
+									"});\r",
+									"console.log(myUserId)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentId/leaderboard/all?page=1&size=33",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentId",
+								"leaderboard",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "33"
+								},
+								{
+									"key": "stageID",
+									"value": "4",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						},
+						"description": "- API chỉ udpate score và rank của player trên overall khi hết một Stage\n    \n- Overall hiển thị theo từng page của mà mình muốn xem, input số page = 1-2-3-4-5..."
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeState Tournament",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"claimableInfo\": {\r\n    \"enable\": true\r\n  },\r\n  \"pauseInfo\": {\r\n    \"enable\": false,\r\n    \"isPaused\": false\r\n  },\r\n  \"tourId\": \"{{idTournament}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/admin/state",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"admin",
+								"state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Claim Off-chain Reward Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/:tournamentID/reward?type=final",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								":tournamentID",
+								"reward"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "final"
+								}
+							],
+							"variable": [
+								{
+									"key": "tournamentID",
+									"value": "{{idTournament}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reward BUSD Tournament",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"var rewardBusdTour = response.data.prize.totalPool[0].value\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"maxPlayers\", response.data.maxPlayers)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.currentStage)\r",
+									"pm.collectionVariables.set(\"currentStage\", response.data.status.status)\r",
+									"pm.collectionVariables.set(\"totalStages\", response.data.totalStages)\r",
+									"pm.collectionVariables.set(\"playFreeLimit\", response.data.maxPlayers)\r",
+									"pm.collectionVariables.set(\"rewardBusdTour\", rewardBusdTour)\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Total Reward",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json()\r",
+									"\r",
+									"var totalRewardUSDT = 0\r",
+									"var totalRewardTHG = 0\r",
+									"var numUserClaimReward = parseInt(pm.collectionVariables.get(\"qualifiedRankFinal\")) \r",
+									"var rewardUser = response.data.players\r",
+									"console.log(numUserClaimReward)\r",
+									"\r",
+									"// get toal BUSD\r",
+									"for (var i = 0; i < numUserClaimReward; i++) {\r",
+									"  totalRewardUSDT += rewardUser[i].busdtReward.properties.usd;\r",
+									"}\r",
+									"\r",
+									"for (var i = 0; i < numUserClaimReward; i++) {\r",
+									"  totalRewardTHG += rewardUser[i].gTHGReward.properties.usd;\r",
+									"}\r",
+									"\r",
+									"let totalReward = totalRewardTHG + totalRewardUSDT\r",
+									"\r",
+									"pm.test(\"Check tổng Busd user sẽ được nhận: \" + totalReward,  function(){\r",
+									"    if((pm.collectionVariables.get(\"rewardBusdtTour\")) == totalReward) {\r",
+									"        pm.expect(true).to.eql(true)\r",
+									"    }else {\r",
+									"        pm.expect(true).to.eql(false)\r",
+									"    }\r",
+									"})\r",
+									"\r",
+									"console.log(pm.collectionVariables.get(\"rewardBusdTour\"))\r",
+									"console.log(totalReward) "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/leaderboard?page=1&size=10&stageID=0&tournamentId={{idTournament}}",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "stageID",
+									"value": "0"
+								},
+								{
+									"key": "tournamentId",
+									"value": "{{idTournament}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cheat Score Tournamnet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk4OTE3MzUwLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTgzMTI1NTAsInJvbGUiOjAsInNpZCI6IjB4N2Y3NWNiOWI2ZTg3OWIyNWQyYzBlZjZlMWViOWM3ZDkyNDQ4MTU0MCIsInN1YiI6IlRoZXRhbmlhbl82NjYxMDA0NzM0IiwidXNlcl9pZCI6IjY1Mzc0OTJmYWFkZGQ2YjhmMjljNDkyZSJ9.ANOza-szOjKEOEgH0fv9EUx9umeQgmVtYjgzLL7KKko",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"appVersion\": \"string\",\r\n    \"gameMode\": 3,\r\n    \"inGameMode\": 21,\r\n    \"listPlayers\": [\r\n        {\r\n            \"battleRank\": 4,\r\n            \"brain\": 2,\r\n            \"heroId\": \"6539db19755bf188c9c72f0a\",\r\n            \"listRoundResult\": [\r\n                {\r\n                    \"falling\": 0,\r\n                    \"mapId\": 201,\r\n                    \"maxCP\": 0,\r\n                    \"passedCP\": 0,\r\n                    \"rank\": 0,\r\n                    \"respawning\": 0,\r\n                    \"result\": true,\r\n                    \"roundId\": 0,\r\n                    \"roundPlayTime\": 0\r\n                }\r\n            ],\r\n            \"partyId\": \"6537492faaddd6b8f29c492e\",\r\n            \"playerId\": \"6537492faaddd6b8f29c492e\"\r\n        }\r\n    ],\r\n    \"listRoundInfo\": [\r\n        {\r\n            \"difficultLevel\": 1,\r\n            \"mapId\": 201,\r\n            \"roundId\": 0,\r\n            \"timeInRound\": 6364\r\n        }\r\n    ],\r\n    \"matchId\": \"profile-thetan-rivals-tournament-time-1698312470510924960-0\",\r\n    \"operationSystem\": \"HandleMatchFoundTournament\",\r\n    \"partyId\": \"6537492faaddd6b8f29c492e\",\r\n    \"partyMode\": \"string\",\r\n    \"questData\": {\r\n        \"dance\": 0,\r\n        \"isPlayAgain\": true,\r\n        \"voice\": 0\r\n    },\r\n    \"thetan\": \"string\",\r\n    \"timeInBattle\": 0\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tournament/6539d59ab9505a9ad321594c/battle-end",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tournament",
+								"6539d59ab9505a9ad321594c",
+								"battle-end"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Play again",
+			"item": [
+				{
+					"name": "1. Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"email\": \"{{email}}\"\r\n    \"email\": \"khanhld+beta1@wolffungame.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Lấy UserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseJSON = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"userId\", responseJSON.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Lấy data số lần Play again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/self",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"self"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Lấy giá/thông tin Play again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"var canBuy = response.data.canBuy\r",
+									"var playFreeTime = response.data.playFreeTime\r",
+									"\r",
+									"if (canBuy == true) {\r",
+									"    pm.test(\"Player có thể mua ticket Play again\", function(){\r",
+									"        pm.expect(true).to.be.true\r",
+									"    })\r",
+									"    \r",
+									"    if (2 > playFreeTime > 0 || 3 > playFreeTime > 1) {\r",
+									"        pm.test(\"Player đã play again \" + playFreeTime + \" lần\", function(){\r",
+									"        pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    } else {\r",
+									"        pm.test(\"Player chưa Play again lần nào\", function(){\r",
+									"        pm.expect(true).to.be.true\r",
+									"        })\r",
+									"    }\r",
+									"} else {\r",
+									"    pm.test(\"Player chưa đủ điều kiện mua ticket play again\", function(){\r",
+									"        pm.expect(true).to.be.false\r",
+									"    })\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/play-again",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"play-again"
+							],
+							"query": [
+								{
+									"key": "tournamnet",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Sử dụng ticket Play again",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody)\r",
+									"var debug = response.debug\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/{{idTournament}}/play-again",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"{{idTournament}}",
+								"play-again"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Fake score Battle End Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"const minNumber = 30000;\r",
+									"const maxNumber = 90000;\r",
+									"\r",
+									"score = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;\r",
+									"\r",
+									"pm.globals.set(\"score\", score);\r",
+									"console.log(score);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"listRoundInfo\": [\r\n    {\r\n      \"timeInRound\": 99999\r\n    }\r\n  ],\r\n  \"userID\": \"{{userId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ThetanWorldUrl}}/tournament/652f9dd66cbb2e653c898c2f/admin-battle-end",
+							"host": [
+								"{{ThetanWorldUrl}}"
+							],
+							"path": [
+								"tournament",
+								"652f9dd66cbb2e653c898c2f",
+								"admin-battle-end"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login (Admin) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"var getAdminToken = response.data.accessToken\r",
+							"postman.setEnvironmentVariable(\"adminAccessToken\", getAdminToken);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld@wolffungame.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ThetaAuthUrl}}/loginByEmail",
+					"host": [
+						"{{ThetaAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "idTournament",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "playerPerLB",
+			"value": ""
+		},
+		{
+			"key": "participantLimit",
+			"value": ""
+		},
+		{
+			"key": "totalStages",
+			"value": ""
+		},
+		{
+			"key": "maxPlayers",
+			"value": ""
+		},
+		{
+			"key": "currentStage",
+			"value": ""
+		},
+		{
+			"key": "playFreeLimit",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "qualifiedRankFinal",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "totalReward",
+			"value": ""
+		},
+		{
+			"key": "rewardBusdTour",
+			"value": ""
+		},
+		{
+			"key": "totalPageOverallLB",
+			"value": ""
+		},
+		{
+			"key": "numUserClaimReward",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

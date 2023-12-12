@@ -1,0 +1,826 @@
+{
+	"info": {
+		"_postman_id": "67742332-cc51-497b-b46d-9baa6f46639f",
+		"name": "Newfeed Creator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "Auto React Post",
+			"item": [
+				{
+					"name": "1. User login TC Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n} ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseAuthUrl}}/loginByEmail",
+							"host": [
+								"{{baseAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LoginSuccess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetaAuthUrl}}/loginByEmail",
+									"host": [
+										"{{ThetaAuthUrl}}"
+									],
+									"path": [
+										"loginByEmail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "686"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "6. React bài post vừa đăng Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MzA1ODE3LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU3MDEwMTcsInJvbGUiOjIsInNpZCI6IjB4YWYzNThkY2MzNGU5YWRkMGM5MGZjOWQ1MzhhMjlmOWQ5OGQyODQ1NCIsInN1YiI6Im8wbzBvMG8iLCJ1c2VyX2lkIjoiNjFjOWExNTdlODllODg1MGI4NGNmM2ZlIn0.OlKPL7OxFpOpBVdPE8U7p0C4Qhwhb_JODh5n4GtgAuU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reactType\": 1,\r\n    \"on\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{NewfeedUrl}}/posts/{{post_id}}/react",
+							"host": [
+								"{{NewfeedUrl}}"
+							],
+							"path": [
+								"posts",
+								"{{post_id}}",
+								"react"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1. User login TC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"accessToken\", response.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"khanhld+wallet2@wolffungame.com\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseAuthUrl}}/loginByEmail",
+					"host": [
+						"{{baseAuthUrl}}"
+					],
+					"path": [
+						"loginByEmail"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "LoginSuccess",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"trungdlp@wolffungame.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetaAuthUrl}}/loginByEmail",
+							"host": [
+								"{{ThetaAuthUrl}}"
+							],
+							"path": [
+								"loginByEmail"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jan 2022 04:42:13 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "686"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQyNzQwMTMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.j5rI4DumujFD9_vzN7qM9IVxm75_KPtzJn8gm5gyGJw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjQ0NzI3MzMzLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NDIxMzUzMzMsInNpZCI6IiIsInN1YiI6IktCQy5UcnVuZyIsInVzZXJfaWQiOiI2MWM5YTE1N2U4OWU4ODUwYjg0Y2YzZmUifQ.MzdkpUA_ws50wcVQlkaYbsPdkwwIvoC0r7RpmOoENoo\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "2. Lấy thông tin User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"userId\", responseJSON.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/profile",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get list model User đã publish",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"",
+							"// Get a random id from the response",
+							"var responseBody = pm.response.json();",
+							"var data = responseBody.data;",
+							"var randomIndex = Math.floor(Math.random() * data.length);",
+							"var randomId = data[randomIndex].id;",
+							"",
+							"// Save the random id to a collection variable",
+							"pm.collectionVariables.set(\"model_id\", randomId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://ugc.staging.thetanarena.com/api/v1/coloring",
+					"protocol": "https",
+					"host": [
+						"ugc",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"coloring"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Đăng post lên Feed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json()\r",
+							"\r",
+							"pm.collectionVariables.set(\"post_id\", response.data.post_id)\r",
+							"pm.collectionVariables.set(\"author_id\", response.data.author_id)\r",
+							"pm.collectionVariables.set(\"text\", response.data.text)\r",
+							"pm.collectionVariables.set(\"status\", response.data.status)\r",
+							"pm.collectionVariables.set(\"background_id\", response.data.metadata.background_id)\r",
+							"pm.collectionVariables.set(\"model_id\", response.data.metadata.model_id)\r",
+							"pm.collectionVariables.set(\"reacted\", response.data.reacted)\r",
+							"pm.collectionVariables.set(\"userPostId\", response.data.author_profile.id)\r",
+							"pm.collectionVariables.set(\"nickname\", response.data.author_profile.nickname)\r",
+							"\r",
+							"// pm.test(\"Compare the text in Body and response\", function () {\r",
+							"//     var requestBody = pm.request.body.json();\r",
+							"//     var requestText = requestBody.raw.text;\r",
+							"\r",
+							"//     var responseText = response.data.text;\r",
+							"//     console.log(requestText)\r",
+							"//     console.log(responseText)\r",
+							"//     pm.expect(requestText).to.equal(responseText);\r",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const randomNumber = Math.floor(Math.random() * 6) + 1;\r",
+							"pm.environment.set(\"random_number\", randomNumber);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"background_id\": {{random_number}},\r\n  \"model_id\": \"{{model_id}}\",\r\n  \"text\": \"{{$randomFullName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://social.staging.thetanarena.com/api/v1/posts/publish-tc",
+					"protocol": "https",
+					"host": [
+						"social",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"publish-tc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. List post User đã đăng",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"// Get a random id from the response\r",
+							"var responseBody = pm.response.json();\r",
+							"var data = responseBody.data;\r",
+							"var randomIndex = Math.floor(Math.random() * data.length);\r",
+							"var randomId = data[randomIndex].post_id;\r",
+							"\r",
+							"// Save the random id to a collection variable\r",
+							"pm.collectionVariables.set(\"post_id\", randomId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://social.staging.thetanarena.com/api/v1/users/{{userId}}/posts?limit=10",
+					"protocol": "https",
+					"host": [
+						"social",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{userId}}",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "limit",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. React bài post vừa đăng",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MzA1ODE3LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU3MDEwMTcsInJvbGUiOjIsInNpZCI6IjB4YWYzNThkY2MzNGU5YWRkMGM5MGZjOWQ1MzhhMjlmOWQ5OGQyODQ1NCIsInN1YiI6Im8wbzBvMG8iLCJ1c2VyX2lkIjoiNjFjOWExNTdlODllODg1MGI4NGNmM2ZlIn0.OlKPL7OxFpOpBVdPE8U7p0C4Qhwhb_JODh5n4GtgAuU"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reactType\": 1,\r\n    \"on\": true\r\n}"
+				},
+				"url": {
+					"raw": "{{NewfeedUrl}}/posts/{{post_id}}/react",
+					"host": [
+						"{{NewfeedUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}",
+						"react"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Kiểm tra post trên Feed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json();",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check post_id đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"post_id\")).to.be.eql(responseData.data.post_id);",
+							"});",
+							"",
+							"pm.test(\"Check background của bài post đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"background_id\")).to.be.eql(responseData.data.metadata.background_id);",
+							"});",
+							"",
+							"pm.test(\"Check model đã đăng của bài post đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"model_id\")).to.be.eql(responseData.data.metadata.model_id);",
+							"});",
+							"",
+							"pm.test(\"Check user đã publish bài post\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"userId\")).to.be.eql(responseData.data.author_id);",
+							"});",
+							"",
+							"pm.test(\"Check nội dung bài post mà user đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"text\")).to.be.eql(responseData.data.text);",
+							"});",
+							"",
+							"pm.test(\"Check status của bài post đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"status\")).to.be.eql(responseData.data.status);",
+							"});",
+							"",
+							"pm.test(\"Check đã có user tương tác (Reacted) của bài post đã publish\", function () {",
+							"  pm.expect(pm.collectionVariables.get(\"reacted\")).to.be.not.eql(responseData.data.reacted);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{NewfeedUrl}}/posts/{{post_id}}",
+					"host": [
+						"{{NewfeedUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. Deleted Post vừa đăng",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json()\r",
+							"\r",
+							"if(response.success == true){\r",
+							"    pm.test(\"Xoa post thanh cong: \" + response.data, function(){\r",
+							"    pm.expect(response.success).to.eql(true)\r",
+							"    })\r",
+							"}else {\r",
+							"    pm.test(\"Post đã được xoá trước đó \" , function(){\r",
+							"    pm.expect(response.success).to.eql(false)\r",
+							"})\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{NewfeedUrl}}/posts/{{post_id}}",
+					"host": [
+						"{{NewfeedUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://social.staging.thetanarena.com/api/v1/posts/{{post_id}}/report",
+					"protocol": "https",
+					"host": [
+						"social",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"{{post_id}}",
+						"report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leader board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://leaderboard.staging.thetanarena.com/v1/leaderboard?lbType=LB:SOCIAL:MOST-LIKED:WEEKLY-2023-46&pageNumber=0&pageSize=100",
+					"protocol": "https",
+					"host": [
+						"leaderboard",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"v1",
+						"leaderboard"
+					],
+					"query": [
+						{
+							"key": "lbType",
+							"value": "LB:SOCIAL:MOST-LIKED:WEEKLY-2023-46"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Time",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://social.staging.thetanarena.com/api/v1/admin/change-time?t=1699534896",
+					"protocol": "https",
+					"host": [
+						"social",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"change-time"
+					],
+					"query": [
+						{
+							"key": "t",
+							"value": "1699534896"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "post_id",
+			"value": ""
+		},
+		{
+			"key": "author_id",
+			"value": ""
+		},
+		{
+			"key": "text",
+			"value": ""
+		},
+		{
+			"key": "status",
+			"value": ""
+		},
+		{
+			"key": "background_id",
+			"value": ""
+		},
+		{
+			"key": "model_id",
+			"value": ""
+		},
+		{
+			"key": "reacted",
+			"value": ""
+		},
+		{
+			"key": "userPostId",
+			"value": ""
+		},
+		{
+			"key": "idList",
+			"value": ""
+		},
+		{
+			"key": "idValues",
+			"value": ""
+		},
+		{
+			"key": "nickname",
+			"value": ""
+		}
+	]
+}

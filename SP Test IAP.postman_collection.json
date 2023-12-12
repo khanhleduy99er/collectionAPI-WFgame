@@ -1,0 +1,1025 @@
+{
+	"info": {
+		"_postman_id": "e76fe82a-2f7d-43d6-85da-11fcb2dbd3c7",
+		"name": "SP Test IAP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26314446"
+	},
+	"item": [
+		{
+			"name": "SP TEST IAP",
+			"item": [
+				{
+					"name": "Configs IAP Shop  (Full option in IAP Shop)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = pm.response.json();\r",
+									"\r",
+									"var buckShopExpectedData = [\r",
+									"    {\r",
+									"        \"packID\": 1,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 30,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 1.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier2\"\r",
+									"    },\r",
+									"    {\r",
+									"        \"packID\": 2,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 80,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 4.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier5\"\r",
+									"    },\r",
+									"    {\r",
+									"        \"packID\": 3,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 170,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 9.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier10\"\r",
+									"    },\r",
+									"    {\r",
+									"        \"packID\": 4,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 360,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 19.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier20\"\r",
+									"    },\r",
+									"    {\r",
+									"        \"packID\": 5,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 950,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 49.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier50\"\r",
+									"    },\r",
+									"    {\r",
+									"        \"packID\": 6,\r",
+									"        \"items\": {\r",
+									"            \"amount\": 2000,\r",
+									"            \"kind\": 1,\r",
+									"            \"type\": 21\r",
+									"        },\r",
+									"        \"priceUSD\": 99.99,\r",
+									"        \"IAPCode\": \"com.wolffun.thetanrivals.rivalbuck.tier100\"\r",
+									"    }\r",
+									"]\r",
+									"\r",
+									"pm.test(\"Check Rival Buck\", function () {\r",
+									"    // Gán kết quả về trả là danh sách các pack  vào biến cho tiện sử dụng\r",
+									"    var buckItems = response.data.resourcePack.rivalBuckItems;\r",
+									"\r",
+									"    // Kiểm tra số lượng pack\r",
+									"    pm.test(\"Check Rival Buck Quantity\", function () {\r",
+									"        console.log(\"Buck items:\", buckItems);\r",
+									"        pm.expect(buckItems.length).to.equal(buckShopExpectedData.length);\r",
+									"    })\r",
+									"\r",
+									"\r",
+									"    // Kiểm tra qua mỗi pack có trong danh sách\r",
+									"    for(var i = 0; i < buckItems.length; i++) {\r",
+									"        pm.test(\"=> Check Pack: #\" + buckItems[i].packID, function () {\r",
+									"            // Kiểm tra qua mỗi thuộc tính của pack\r",
+									"            for (var field in buckItems[i]) {\r",
+									"                // Kiểm tra các field của pack\r",
+									"                pm.test(\"====> Check Field: \" + field + \" of Pack: #\" + buckItems[i].packID, function () {\r",
+									"                    // Nếu field chứa thuộc tính con thì kiểm tra các thuộc tính con\r",
+									"                    if (typeof buckItems[i][field] === 'object') {\r",
+									"                        for (var nestedField in buckItems[i][field]) {\r",
+									"                            pm.expect(buckItems[i][field][nestedField]).to.equal(buckShopExpectedData[i][field][nestedField]);\r",
+									"                        }\r",
+									"                    // Không thì chỉ cần so sánh bằng\r",
+									"                    } else {\r",
+									"                        pm.expect(buckItems[i][field]).to.equal(buckShopExpectedData[i][field]);\r",
+									"                    }\r",
+									"                });\r",
+									"            }\r",
+									"        });\r",
+									"\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/configs",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetFullScores (Check for Special Offer)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ingame-shop/scores",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ingame-shop",
+								"scores"
+							],
+							"query": [
+								{
+									"key": "battleFrequency",
+									"value": "{{battleFrequency}}",
+									"disabled": true
+								},
+								{
+									"key": "loginFrequency",
+									"value": "{{loginFrequency}}",
+									"disabled": true
+								},
+								{
+									"key": "sessionInDay",
+									"value": "{{sessionInday}}",
+									"disabled": true
+								},
+								{
+									"key": "firstPurchaseBattle",
+									"value": "{{firstPurchaseBattle}}",
+									"disabled": true
+								},
+								{
+									"key": "shopVisit",
+									"value": "{{dailyShopVisit}}",
+									"disabled": true
+								},
+								{
+									"key": "firstPurchaseValue",
+									"value": "{{firstPurchaseValue}}",
+									"disabled": true
+								},
+								{
+									"key": "AVGPurchaseGap",
+									"value": "{{AVGPurchaseGap}}",
+									"disabled": true
+								},
+								{
+									"key": "AVGPurchaseValue",
+									"value": "{{AVGPurchaseValue}}",
+									"disabled": true
+								},
+								{
+									"key": "MKPValueRank",
+									"value": "9",
+									"disabled": true
+								},
+								{
+									"key": "IAPValue",
+									"value": "{{IAPValue}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile (Get profile Of User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var response = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"userid\", response.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/profile",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Config (CheckId/Type of all Items in Shop)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var response = JSON.parse(responseBody)\r",
+									"// var getVersion = response.data[\"version\"]\r",
+									"\r",
+									"// // compare the result \r",
+									"// pm.test(\"The result of compare is \" + getVersion, function () {\r",
+									"//     pm.expect(getVersion).to.deep.equal(\"56c4b896f20ecdee039b51d6551c51iii2c\");\r",
+									"// });\r",
+									"\r",
+									"var jsonData = pm.response.json()\r",
+									"pm.test(\"check version \", function(){\r",
+									"    pm.expect(jsonData.data.version).to.eql(\"56c4b896f20ecdee039b51d6551c512c\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/inventory/configs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"inventory",
+								"configs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserRanking (About ranking of User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/ranking-reward",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"ranking-reward"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Inventory (Inventory of User)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Inventory - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "7a4b48e6-5709-4eff-9a72-d1c69c893aad"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 10:49:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "501"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"id\": \"61c9a157e89e8850b84cf3fe\",\n        \"createdAt\": \"2022-08-02T04:35:04.974Z\",\n        \"updatedAt\": \"2022-08-02T04:35:04.974Z\",\n        \"inventories\": {\n            \"CURRENCY_21\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 21,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_22\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 22,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_23\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 23,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_24\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 24,\n                \"amount\": 0,\n                \"decimals\": 8\n            },\n            \"CURRENCY_25\": {\n                \"kind\": \"CURRENCY\",\n                \"type\": 25,\n                \"amount\": 0,\n                \"decimals\": 8\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "My Minion (Minion in of User)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// var response = JSON.parse(responseBody);\r",
+									"// postman.setEnvironmentVariable(\"minionId\", response.data.minions[0].id);\r",
+									"// postman.setEnvironmentVariable(\"userId\", response.data.minions[0].userId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/minion?{{minionId}}",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"minion"
+							],
+							"query": [
+								{
+									"key": "{{minionId}}",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "2. My Minion - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/minion",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"minion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "14de0c5b-282e-4669-a268-44d984e32ab4"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 08 Aug 2022 06:53:51 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": {\n        \"minions\": [\n            {\n                \"id\": \"62f0b2ff95af80a99d950738\",\n                \"createdAt\": \"2022-08-08T06:48:51.536168Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536169Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 0,\n                \"skin\": 0,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950739\",\n                \"createdAt\": \"2022-08-08T06:48:51.53617Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53617Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 0,\n                \"skin\": 1,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073a\",\n                \"createdAt\": \"2022-08-08T06:48:51.536176Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536176Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 0,\n                \"skin\": 2,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073b\",\n                \"createdAt\": \"2022-08-08T06:48:51.536177Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536177Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 1,\n                \"skin\": 100,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073c\",\n                \"createdAt\": \"2022-08-08T06:48:51.536178Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536178Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 1,\n                \"skin\": 101,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073d\",\n                \"createdAt\": \"2022-08-08T06:48:51.536179Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536179Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 1,\n                \"skin\": 102,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073e\",\n                \"createdAt\": \"2022-08-08T06:48:51.53618Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53618Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 2,\n                \"skin\": 200,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95073f\",\n                \"createdAt\": \"2022-08-08T06:48:51.536181Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536181Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 2,\n                \"skin\": 201,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950740\",\n                \"createdAt\": \"2022-08-08T06:48:51.536182Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536182Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 2,\n                \"skin\": 202,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950741\",\n                \"createdAt\": \"2022-08-08T06:48:51.536183Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536183Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 3,\n                \"skin\": 300,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950742\",\n                \"createdAt\": \"2022-08-08T06:48:51.536184Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536184Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 3,\n                \"skin\": 301,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950743\",\n                \"createdAt\": \"2022-08-08T06:48:51.536185Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536185Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 4,\n                \"skin\": 400,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950744\",\n                \"createdAt\": \"2022-08-08T06:48:51.536186Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536186Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 4,\n                \"skin\": 401,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950745\",\n                \"createdAt\": \"2022-08-08T06:48:51.536187Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536187Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 4,\n                \"skin\": 402,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950746\",\n                \"createdAt\": \"2022-08-08T06:48:51.536188Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536188Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 5,\n                \"skin\": 500,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950747\",\n                \"createdAt\": \"2022-08-08T06:48:51.536189Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536189Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 5,\n                \"skin\": 501,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950748\",\n                \"createdAt\": \"2022-08-08T06:48:51.53619Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53619Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 5,\n                \"skin\": 502,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950749\",\n                \"createdAt\": \"2022-08-08T06:48:51.536191Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536191Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 6,\n                \"skin\": 600,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074a\",\n                \"createdAt\": \"2022-08-08T06:48:51.536191Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536192Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 6,\n                \"skin\": 601,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074b\",\n                \"createdAt\": \"2022-08-08T06:48:51.536192Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536192Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 6,\n                \"skin\": 602,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074c\",\n                \"createdAt\": \"2022-08-08T06:48:51.536193Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536193Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 7,\n                \"skin\": 700,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074d\",\n                \"createdAt\": \"2022-08-08T06:48:51.536194Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536194Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 7,\n                \"skin\": 701,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074e\",\n                \"createdAt\": \"2022-08-08T06:48:51.536195Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536195Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 8,\n                \"skin\": 800,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95074f\",\n                \"createdAt\": \"2022-08-08T06:48:51.536196Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536196Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 8,\n                \"skin\": 801,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950750\",\n                \"createdAt\": \"2022-08-08T06:48:51.536197Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536197Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 9,\n                \"skin\": 900,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950751\",\n                \"createdAt\": \"2022-08-08T06:48:51.536198Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536198Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 9,\n                \"skin\": 901,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950752\",\n                \"createdAt\": \"2022-08-08T06:48:51.536199Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536199Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 9,\n                \"skin\": 902,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950753\",\n                \"createdAt\": \"2022-08-08T06:48:51.5362Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.5362Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 10,\n                \"skin\": 1000,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950754\",\n                \"createdAt\": \"2022-08-08T06:48:51.536215Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536215Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 10,\n                \"skin\": 1001,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950755\",\n                \"createdAt\": \"2022-08-08T06:48:51.536216Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536216Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 11,\n                \"skin\": 1100,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950756\",\n                \"createdAt\": \"2022-08-08T06:48:51.536217Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536217Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 11,\n                \"skin\": 1101,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950757\",\n                \"createdAt\": \"2022-08-08T06:48:51.536218Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536218Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 11,\n                \"skin\": 1102,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950758\",\n                \"createdAt\": \"2022-08-08T06:48:51.536219Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536219Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 12,\n                \"skin\": 1200,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950759\",\n                \"createdAt\": \"2022-08-08T06:48:51.53622Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53622Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 12,\n                \"skin\": 1201,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075a\",\n                \"createdAt\": \"2022-08-08T06:48:51.536221Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536221Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 12,\n                \"skin\": 1202,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075b\",\n                \"createdAt\": \"2022-08-08T06:48:51.536222Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536222Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 13,\n                \"skin\": 1300,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075c\",\n                \"createdAt\": \"2022-08-08T06:48:51.536223Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536223Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 13,\n                \"skin\": 1301,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075d\",\n                \"createdAt\": \"2022-08-08T06:48:51.536224Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536224Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 13,\n                \"skin\": 1302,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075e\",\n                \"createdAt\": \"2022-08-08T06:48:51.536224Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536225Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 14,\n                \"skin\": 1400,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95075f\",\n                \"createdAt\": \"2022-08-08T06:48:51.536225Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536225Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 14,\n                \"skin\": 1401,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950760\",\n                \"createdAt\": \"2022-08-08T06:48:51.536226Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536226Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 14,\n                \"skin\": 1402,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950761\",\n                \"createdAt\": \"2022-08-08T06:48:51.536228Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536228Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 15,\n                \"skin\": 1500,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950762\",\n                \"createdAt\": \"2022-08-08T06:48:51.536229Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536229Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 15,\n                \"skin\": 1501,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950763\",\n                \"createdAt\": \"2022-08-08T06:48:51.53623Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53623Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 15,\n                \"skin\": 1502,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950764\",\n                \"createdAt\": \"2022-08-08T06:48:51.536231Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536231Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 16,\n                \"skin\": 1600,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950765\",\n                \"createdAt\": \"2022-08-08T06:48:51.536232Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536232Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 16,\n                \"skin\": 1601,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950766\",\n                \"createdAt\": \"2022-08-08T06:48:51.536233Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536233Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 16,\n                \"skin\": 1602,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950767\",\n                \"createdAt\": \"2022-08-08T06:48:51.536234Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536234Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 17,\n                \"skin\": 1700,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950768\",\n                \"createdAt\": \"2022-08-08T06:48:51.536235Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536235Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 17,\n                \"skin\": 1701,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950769\",\n                \"createdAt\": \"2022-08-08T06:48:51.536236Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536236Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 18,\n                \"skin\": 1800,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076a\",\n                \"createdAt\": \"2022-08-08T06:48:51.536236Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536237Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 18,\n                \"skin\": 1801,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076b\",\n                \"createdAt\": \"2022-08-08T06:48:51.536237Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536238Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 19,\n                \"skin\": 1900,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076c\",\n                \"createdAt\": \"2022-08-08T06:48:51.536238Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536239Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 19,\n                \"skin\": 1901,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076d\",\n                \"createdAt\": \"2022-08-08T06:48:51.536239Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53624Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 20,\n                \"skin\": 2000,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076e\",\n                \"createdAt\": \"2022-08-08T06:48:51.53624Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53624Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 21,\n                \"skin\": 2100,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d95076f\",\n                \"createdAt\": \"2022-08-08T06:48:51.53625Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.53625Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 21,\n                \"skin\": 2101,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950770\",\n                \"createdAt\": \"2022-08-08T06:48:51.536251Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536251Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 22,\n                \"skin\": 2200,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950771\",\n                \"createdAt\": \"2022-08-08T06:48:51.536252Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536252Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 22,\n                \"skin\": 2201,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950772\",\n                \"createdAt\": \"2022-08-08T06:48:51.536253Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536253Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 23,\n                \"skin\": 2300,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950773\",\n                \"createdAt\": \"2022-08-08T06:48:51.536254Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536254Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 23,\n                \"skin\": 2301,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950774\",\n                \"createdAt\": \"2022-08-08T06:48:51.536255Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536255Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 24,\n                \"skin\": 2400,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950775\",\n                \"createdAt\": \"2022-08-08T06:48:51.536256Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536256Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 24,\n                \"skin\": 2401,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950776\",\n                \"createdAt\": \"2022-08-08T06:48:51.536257Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536257Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 24,\n                \"skin\": 2402,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950777\",\n                \"createdAt\": \"2022-08-08T06:48:51.536257Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536258Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 25,\n                \"skin\": 2500,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            },\n            {\n                \"id\": \"62f0b2ff95af80a99d950778\",\n                \"createdAt\": \"2022-08-08T06:48:51.536258Z\",\n                \"updatedAt\": \"2022-08-08T06:51:51.536258Z\",\n                \"userId\": \"61c9a157e89e8850b84cf3fe\",\n                \"type\": 26,\n                \"skin\": 2600,\n                \"nft\": false,\n                \"level\": 1,\n                \"addIns\": {\n                    \"backBling\": -1,\n                    \"dance\": -1,\n                    \"flyCraft\": -1,\n                    \"footprint\": -1,\n                    \"glow\": -1,\n                    \"spray\": -1,\n                    \"voice\": -1\n                }\n            }\n        ],\n        \"total\": 65\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Admin Send Inventory (Send Currency to User)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\",\n    \"inventories\": [\n        {\n            \"kind\": 1,\n            \"type\": 22,\n            \"amount\": 205\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"send"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "101. Admin Send Inventory",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": \"61c9a157e89e8850b84cf3fe\",\n    \"inventories\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 5\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ThetanRivalsUrl}}/inventory/admin/send",
+									"host": [
+										"{{ThetanRivalsUrl}}"
+									],
+									"path": [
+										"inventory",
+										"admin",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "f42b791a-6ea4-4cb5-b664-8eb19b650230"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Aug 2022 07:36:47 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "153"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"code\": 0,\n    \"data\": [\n        {\n            \"kind\": 4,\n            \"type\": 15000003,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        },\n        {\n            \"kind\": 4,\n            \"type\": 15000004,\n            \"amount\": 500000000,\n            \"decimals\": 8\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Admin Send Thenion (Send Skin of Thenion to User)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\",\n    \"skinIds\": [1,402]\n}"
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/minion/admin/unlock/skins",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"minion",
+								"admin",
+								"unlock",
+								"skins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserConfig",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Encoding",
+								"value": "br, gzip, deflate"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjcyNDYzMjA0LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2NzE4NTg0MDQsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IklrcG1XVjdyZUxwaCIsInVzZXJfaWQiOiI2M2E2N2VjMTFlN2E1YzdmOGUwNjA3ZTUifQ.r3sK0bpeF3VFvL581KrisAVN7TkYtefKF71A4iRwdVU"
+							}
+						],
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/item/configs?rarity=1&season=0&exclusiveFor=SeasonOffer",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"item",
+								"configs"
+							],
+							"query": [
+								{
+									"key": "rarity",
+									"value": "1"
+								},
+								{
+									"key": "season",
+									"value": "0"
+								},
+								{
+									"key": "exclusiveFor",
+									"value": "SeasonOffer"
+								},
+								{
+									"key": "eventId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "setId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "uniformId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "ssPassType",
+									"value": "free",
+									"disabled": true
+								},
+								{
+									"key": "theme",
+									"value": "casual",
+									"disabled": true
+								},
+								{
+									"key": "unlocked",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "dailyDeal",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "buckShop",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "megaBox",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "eventBox",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "advantage",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Item Suggest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{adminAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userid}}\"\n}"
+						},
+						"url": {
+							"raw": "{{ThetanRivalsUrl}}/inventory/admin/suggest",
+							"host": [
+								"{{ThetanRivalsUrl}}"
+							],
+							"path": [
+								"inventory",
+								"admin",
+								"suggest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Battle-end (Check Winstreak)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjgxNzIyNDc4LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODExMTc2NzgsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6ImtoYW5obGQiLCJ1c2VyX2lkIjoiNjQzMzgwZDY4NjVkMmYzNThhYzEwZGQ0In0.DFb0HpB156nMM3eBZj1xFkiN-U277M4v-8v8UUUVZS8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjgwNzYzODU3LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODAxNTkwNTcsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6IjBEelZZWUJncHdQNyIsInVzZXJfaWQiOiI2NDI1MzE1MTJhYjg2NGQ5YTQ0YmI5MDAifQ.SefUpvI5aD2Omt35bWGVf9v6REdxPIceoY_-zR14N5I"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"thetan\":\"thetan2\",\r\n    \"matchId\":\"matchId2\",\r\n    \"gameMode\":3,\r\n    \"inGameMode\":32,\r\n    \"listRoundInfo\":[\r\n        {\r\n            \"roundId\":1,\r\n            \"mapId\":0\r\n        },\r\n        {\r\n            \"roundId\":2,\r\n            \"mapId\":1\r\n        },\r\n        {\r\n            \"roundId\":3,\r\n            \"mapId\":2\r\n        }\r\n    ],\r\n    \"operationSystem\":\"operationSystem2\",\r\n    \"appVersion\":\"appVersion2\",\r\n    \"listPlayers\":[\r\n        {\r\n            \"playerId\":\"643386dd865d2f358ac10ddc\",\r\n            \"battleRank\": 2\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "https://thetan-rivals-service-preview-pr-739.staging.thetanarena.com/api/v1/battle-reward/battleend",
+							"protocol": "https",
+							"host": [
+								"thetan-rivals-service-preview-pr-739",
+								"staging",
+								"thetanarena",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"battle-reward",
+								"battleend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Onboarding",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjgxMTg0OTQxLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODA1ODAxNDEsInJvbGUiOjIsInNpZCI6IjB4MmE5OTAzMzUzNTI2NzZmYmQ0NDE5OWM0ZmRjYTQ4OWUyNjY3OTk4NyIsInN1YiI6IlR1bmEiLCJ1c2VyX2lkIjoiNjM1YTYxMGIwYTdhNTk4YzY2ZDI0ZjJhIn0.sQiSibBGhTkjtEmqJA7p1aQIKv10CuuTHYGHM83CIqg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjgxMTg0OTQxLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2ODA1ODAxNDEsInJvbGUiOjIsInNpZCI6IjB4MmE5OTAzMzUzNTI2NzZmYmQ0NDE5OWM0ZmRjYTQ4OWUyNjY3OTk4NyIsInN1YiI6IlR1bmEiLCJ1c2VyX2lkIjoiNjM1YTYxMGIwYTdhNTk4YzY2ZDI0ZjJhIn0.sQiSibBGhTkjtEmqJA7p1aQIKv10CuuTHYGHM83CIqg"
+					}
+				],
+				"url": {
+					"raw": "data-rivals.staging.thetanarena.com/api/v1/matchmaking/findmatchinfo?playerIds=643380d6865d2f358ac10dd4",
+					"host": [
+						"data-rivals",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"matchmaking",
+						"findmatchinfo"
+					],
+					"query": [
+						{
+							"key": "playerIds",
+							"value": "643380d6865d2f358ac10dd4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ranking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{requestAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MzIyMzI5LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU3MTc1MjksInJvbGUiOjAsInNpZCI6IjB4NTFmNDlkM2Q2YzNhOTRjNDkxOGMyNTNkY2NhNWI4YjhiZDFhODgwNSIsInN1YiI6IjIzMTIxMzIxMzEyMzEyMzEyMyIsInVzZXJfaWQiOiI2MjNkNzM1YWQ4ZmExYmFhY2Y4YzZlYjUifQ.NsgAiWeXD42DJFaqm6PAeI7L6Vf-nUYUj-1D3WGqYo4"
+					}
+				],
+				"url": {
+					"raw": "{{ThetanRivalsUrl}}/ranking-reward",
+					"host": [
+						"{{ThetanRivalsUrl}}"
+					],
+					"path": [
+						"ranking-reward"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tăng Ranking của User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{adminAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk1ODc1MTUyLCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTUyNzAzNTIsInJvbGUiOjEsInNpZCI6IjB4ZWQwZmI4ZDJkMDBiNzhiMTk0ZTc4NGVjY2Q4ZmRjM2E2MTY0YWJlZSIsInN1YiI6IlRydW5nRGFpQ2EiLCJ1c2VyX2lkIjoiNjIzOWM2YzhkOGZhMWJhYWNmOGM2ZTc3In0.3FB8yr3xCsdC4cF5g3T7yY-nId0rU9rT3NYs0jjVQ_g"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"{{userReceiverId}}\",\r\n    \"trophy\": 24\r\n}"
+				},
+				"url": {
+					"raw": "{{ThetanRivalsUrl}}/ranking-reward/admin/updatetrophy",
+					"host": [
+						"{{ThetanRivalsUrl}}"
+					],
+					"path": [
+						"ranking-reward",
+						"admin",
+						"updatetrophy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Minion ingame",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{receiverAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKV1RfQVBJUyIsImNhbl9taW50IjpmYWxzZSwiZXhwIjoxNjk2MjIxMDA0LCJpc3MiOiJodHRwczovL2FwaS5tYXJrZXRwbGFjZS5hcHAiLCJuYmYiOjE2OTU2MTYyMDQsInJvbGUiOjAsInNpZCI6IiIsInN1YiI6ImFaTjdBbURDanpPSCIsInVzZXJfaWQiOiI2NDgxNDMxZjg4ZjMxNWU2MDA3MDRhZjkifQ.u2Spi1xq9AihY5HN6pp2QpNja9MH9VqA7eME3sybsUg"
+					}
+				],
+				"url": {
+					"raw": "https://data-rivals.staging.thetanarena.com/api/v1/minion",
+					"protocol": "https",
+					"host": [
+						"data-rivals",
+						"staging",
+						"thetanarena",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"minion"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
